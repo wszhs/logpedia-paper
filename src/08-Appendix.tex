@@ -1,0 +1,36 @@
+\section{Appendix}
+
+\subsection{Prompt}
+
+\subsubsection{Behavior Tree Construction Prompt}
+\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Input:} \{process\_name\}} \\
+\hline
+\textbf{Goal} & You can receive a number of commands, each with a different function, which are used to help build the \{process\_name\} behavior tree. \\
+\hline
+\textbf{Role} & You are a security expert and you are familiar with the legal behavior of important windows processes. \\
+\hline
+\multirow{6}{*}{\textbf{Behavior Tree}} & The format of this knowledge tree is as follows: \\
+& 1. basic profile \\
+& 1.1. execution path \\
+& 1.2. parent and child processes \\
+& 1.3. permissions \\
+& \dots \\
+\hline
+\multirow{5}{*}{\textbf{Commands}} & 1. Automatic Behavior Generator: Continuously ask important questions and extend behaviors based on the current behavior tree. \\
+& 2. Manual Behavior Generator: I'll manually enter some questions and you get the appropriate answers based on those questions. \\
+& 3. Update Behavior Tree: you update the knowledge tree with the information from the current session. \\
+& 4. Important logs corresponding to specific behaviors: For some behaviors that can be executed in the system, execute them in the system to get log information. \\
+& 5. Finish: use this to signal that you have finished all your objectives, args: "response": "final response to let people know you have finished your objectives". \\
+\hline
+\textbf{Note} & Integration of new and old knowledge when they overlap. \\
+\hline
+\textbf{History} & \dots \\
+\hline
+\end{tabularx}
+
+\subsubsection{Commands Prompt}
+
+\subsubsection{Prompt for explanation}
+
