@@ -1,6 +1,6 @@
 \section{Experiment Evaluation}
 
-In order to validate the effectiveness of our approach, we simulated 4 steathy techniques, 23 malicious functions attacks on 100 critical system processes and ten APT (Advanced Persistent Threat) attack scenarios:
+In order to validate the effectiveness of our approach, we simulated 4 stealthy techniques, 23 malicious functions attacks on 100 critical system processes and ten APT attack scenarios:
 
 \begin{itemize}
     \item \textbf{Q1.} How well does our method work, and does it achieve a low false-positive rate and false-negative rate? ((§~\ref{sec-effective})
@@ -19,7 +19,7 @@ The C++ code in the project is utilized for the generation of malicious attacks,
 We present important technical details in the implementation.
 
 \subsubsection{System Auditing Collection}
-Although ProCon can handle input from Linux and Windows systems, our evaluation focuses primarily on Windows events. Because most of our benign deployment environment consists of Windows-based hosts, and sophisticated malware is mostly designed for Windows platforms, this is largely due to the fact that we have a benign deployment environment. We use Sysmon, Windows' sophisticated log collection tool, to collect provenance data from these systems. System logs are captured thoroughly and exhaustively by leveraging Sysmon's default settings.
+Although \tool can handle input from Linux and Windows systems, our evaluation focuses primarily on Windows events. Because most of our benign deployment environment consists of Windows-based hosts, and sophisticated malware is mostly designed for Windows platforms, this is largely due to the fact that we have a benign deployment environment. We use Sysmon, Windows' sophisticated log collection tool, to collect provenance data from these systems. System logs are captured thoroughly and exhaustively by leveraging Sysmon's default settings.
 
 \subsubsection{Attack Datasets}
 
@@ -210,17 +210,17 @@ We construct 10 simulated APT attack scenarios by combining single attack behavi
         \cline{2-5}
         & \#Attack & \#Non-attack & \#Attack & \#Non-attack \\
         \hline
-        S-1 & 8 & 2319 & 41 & 2286 \\
-        S-2 & 8 & 2702 & 41 & 2669 \\
-        S-3 & 9 & 2738 & 43 & 2704 \\
-        S-4 & 7 & 2062 & 18 & 2051 \\
-        S-5 & 9 & 3074 & 45 & 3038 \\
-        S-6 & 7 & 2308 & 38 & 2277 \\
-        S-7 & 8 & 2114 & 21 & 2101 \\
-        S-8 & 8 & 2985 & 42 & 2951 \\
-        S-9 & 8 & 2733 & 42 & 2699 \\
-        S-10 & 7 & 2171 & 21 & 2157 \\
-        Avg. & 8 & 2509 & 35 & 2493 \\
+        S-1 & 8 & 738 & 41 & 2286 \\
+        S-2 & 8 & 939 & 41 & 2669 \\
+        S-3 & 9 & 1003 & 43 & 2704 \\
+        S-4 & 7 & 713 & 18 & 2051 \\
+        S-5 & 9 & 1134 & 45 & 3038 \\
+        S-6 & 7 & 893 & 38 & 2277 \\
+        S-7 & 8 & 718 & 21 & 2101 \\
+        S-8 & 8 & 1092 & 42 & 2951 \\
+        S-9 & 8 & 1090 & 42 & 2699 \\
+        S-10 & 7 & 748 & 21 & 2157 \\
+        Avg. & 8 & 907 & 35 & 2493 \\
         \hline
     \end{tabular}
     \caption{Process-based and entity-based investigation results.}
@@ -233,8 +233,8 @@ We construct 10 simulated APT attack scenarios by combining single attack behavi
 \textbf{Method} & \textbf{P(Avg.)} & \textbf{R(Avg.)} & \textbf{F1(Avg.)} \\
 \hline
 ProvDetector & 17.82\% & 47.58\% & 47.85\% \\
-ThreaTrace & 0.23\% & 14.84\% & 0.47\% \\
-ATLAS & 9.63\% & 58.83\% & 16.41\% \\
+ThreaTrace & 1.01\% & 35.84\% & 2.00\% \\
+ATLAS & 9.63\% & 57.83\% & 14.68\% \\
 Shadewatcher & 6.52\% & 0.20\% & 0.41\% \\
 \tool & 94.44\% & 90.43\% & 91.33\% \\
 \hline
@@ -242,6 +242,18 @@ Shadewatcher & 6.52\% & 0.20\% & 0.41\% \\
 \caption{Comparison of different methods.}
 \label{tab:comparison}
 \end{table}
+
+% \begin{tabular}{|l|c|c|c|c|c|}
+% \hline
+% \textbf{Method} & \textbf{P(Avg.)} & \textbf{R(Avg.)} & \textbf{F1(Avg.)} & \textbf{Miss Rate} & \textbf{False Alarm Rate} \\
+% \hline
+% ProvDetector & 17.82\% & 47.58\% & 47.85\% & 52.42\% & 82.18\% \\
+% ThreaTrace & 1.01\% & 35.84\% & 2.00\% & 64.16\% & 98.99\% \\
+% ATLAS & 9.63\% & 57.83\% & 14.68\% & 42.17\% & 90.37\% \\
+% Shadewatcher & 6.52\% & 0.20\% & 0.41\% & 99.80\% & 93.48\% \\
+% \tool & 94.44\% & 90.43\% & 91.33\% & 9.57\% & 5.56\% \\
+% \hline
+% \end{tabular}
 
 \textbf{Case Study.}
 \begin{itemize}
