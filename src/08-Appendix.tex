@@ -1,14 +1,31 @@
 \section{Appendix}
 
+% \label{alg:fre-common}
+
 \subsection{test}
 
 \subsection{Algorithm}
+
 \begin{algorithm}
-\caption{Common Items and Frequent Subsequences Mining}
+\caption{Common Items and SubSequences Mining}
 \label{alg:fre-common}
 \begin{algorithmic}[1]
-\Require A set of log sequences \( \mathcal{D} \), threshold \( \theta \)
-\Ensure Frequent subsequences \( \mathcal{F} \)
+\Require A set of log sequences \( \mathcal{D} \), threshold \( \theta=1 \)
+\Ensure Common subsequences \( \mathcal{F} \)
+\Statex
+\Function{extractCommonItems}{$\mathcal{D}$}
+    \State \( \text{items\_set} = \) set of items from the first sequence in \( \mathcal{D} \)
+    \For{each sequence \(S\) in \(\mathcal{D}\) excluding the first one}
+        \State \( \text{items\_set} = \text{items\_set} \cap \) set of items from \(S\)
+    \EndFor
+    \State \Return \( \text{items\_set} \) 
+\EndFunction
+\Statex
+\Function{PrefixSpanMining}{$\mathcal{D}$, $\theta$}
+    \State \( \text{Implement PrefixSpan or use an existing library} \)
+    \State \( \mathcal{F} = \) sequences with frequency \( \geq \theta \)
+    \State \Return \( \mathcal{F} \)
+\EndFunction
 \Statex
 \Function{Mining}{$\mathcal{D}$, $\theta$}
     \State \( \mathcal{C} \) = \Call{extractCommonItems}{$\mathcal{D}$}
@@ -18,10 +35,9 @@
     \State \( \mathcal{F} \) = \Call{PrefixSpanMining}{$\mathcal{D}$, $\theta$}
     \State \Return \( \mathcal{F} \)
 \EndFunction
-\Statex
-% Assume extractCommonItems and PrefixSpanMining are predefined.
 \end{algorithmic}
 \end{algorithm}
+
 
 % \begin{algorithm}
 % \caption{Frequent Subsequence Mining with Common Item Extraction from Log Sequences}

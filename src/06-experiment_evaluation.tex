@@ -155,7 +155,7 @@ As previously mentioned, the GitHub project \cite{evtx-baseline2022} provides lo
 These logs were collected from various users performing an array of routine operations. We utilized these logs to assess the false positive rate (i.e., false alarms) of our method in these scenarios.
 
 In the Windows 7 scenario, our investigation encompassed 13 processes from our list, which manifested in 159 distinct entities due to multiple entities associated with a single process name. For Windows 10, we analyzed 47 processes (564 entities), and for Windows 11, we focused on 52 processes (1137 entities).
-As illustrated in the Figure~\ref{fig-eva-normal}, in the Windows 10 system, our method had 6 false positives out of 47 processes in our list. In Windows 11, there were 8 false positives out of 52 processes, and in Windows 7, the performance was the poorest with 4 false positives out of 13 processes.
+As illustrated in the Figure~\ref{fig-eva-normal}, in the Windows 10 system, our method had 1 false positives out of 47 processes in our list. In Windows 11, there were 3 false positives out of 52 processes, and in Windows 7, the performance was the poorest with 2 false positives out of 13 processes.
 
 \begin{figure}[h]
     \centering
@@ -228,7 +228,7 @@ ProvDetector & 17.82\% & 47.58\% & 47.85\% \\
 ThreaTrace & 1.01\% & 35.84\% & 2.00\% \\
 ATLAS & 9.63\% & 57.83\% & 14.68\% \\
 Shadewatcher & 6.52\% & 0.20\% & 0.41\% \\
-\tool & 94.44\% & 90.43\% & 91.33\% \\
+\tool & 96.25\% & 90.15\% & 92.79\% \\
 \hline
 \end{tabular}
 \caption{Comparison of different methods.}
@@ -324,7 +324,7 @@ We aim to demonstrate the effectiveness of our cross-session validation approach
 Detection and interpretation are seamlessly integrated into our approach. The following sections explain how our method exposes attack behaviors and facilitates rapid verification and response to threats by security analysts.
 To confirm the accuracy of the constraints we extracted, we searched Google, blogs, books, etc. In some public reports, we found consistency between their findings and our constraints.
 
-There are some crucial documents\cite[nasbench], including a technical document that outlines 15 essential system processes and their execution paths. For instance, in the case of \textit{lsass.exe}, the document indicates that its parent process is \textit{wininit.exe}, it does not have a fixed child process, and its execution path is \textit{\%Systemroot\%/system32/lsass.exe}. It aligns with the knowledge we have gained through LLMs.
+There are some crucial documents\cite{nasbench}, including a technical document that outlines 15 essential system processes and their execution paths. For instance, in the case of \textit{lsass.exe}, the document indicates that its parent process is \textit{wininit.exe}, it does not have a fixed child process, and its execution path is \textit{\%Systemroot\%/system32/lsass.exe}. It aligns with the knowledge we have gained through LLMs.
 There is also document\cite{windows10dll} about static call relationship between Windows DLLs. \textit{Lsass.exe} will undoubtedly load \textit{lsasrv.dll}, and \textit{lsasrv.dll} and \textit{samsrv.dll} have a static link relationship. This knowledge also remains consistent with what we have learned through LLMs.
 
 % https://nasbench.medium.com/windows-system-processes-an-overview-for-blue-teams-42fa7a617920
