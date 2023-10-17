@@ -1,4 +1,4 @@
-\section{Background and Related work}
+\section{Related work}
 
 \subsection{Stealthy APT Attacks}
 
@@ -38,13 +38,13 @@ Provenance graph-based methods are becoming increasingly popular in detecting st
 Anomaly-based detection techniques train models on benign behaviors, identifying deviations as potential cyber-attacks. Although these methods can detect threats with impressive accuracy by integrating audit record semantics into threat analysis, existing learning solutions often fail to provide insightful and explicable results, which can sometimes compromise their practical utility.
 
 \noindent
-{\bf Graph-based Methods.} Graph-based anomaly detection requires extensive training datasets and is computationally intensive. The researchers have embedded provenance graphs into vector space and developed tools such as StreamSpot \cite{manzoor2016fast} and Unicorn \cite{han2020unicorn} to analyze information flow graphs. Despite Unicorn's superior performance due to its thorough graph analysis, both methods face challenges in detecting stealthy threats due to graph kernel limitations. In the same way, IPG \cite{li2021hierarchical} and ProGrapher \cite{yang2023prographer} use graph-level approaches, but struggle with similar issues as StreamSpot and Unicorn. Despite the fact that many systems attempt to use data provenance for threat detection, methods that combine scope and timeliness are needed. The remarkable capabilities of KAIROS \cite{cheng2023kairos} make it an excellent competitor. 
+{\bf Graph-based Methods.} Graph-based anomaly detection requires extensive training datasets and is computationally intensive. The researchers have embedded provenance graphs into vector space and developed tools such as StreamSpot \cite{manzoor2016fast} and Unicorn \cite{han2020unicorn} to analyze information flow graphs. Despite Unicorn's superior performance due to its thorough graph analysis, both methods face challenges in detecting stealthy threats due to graph kernel limitations. In the same way, IPG \cite{li2021hierarchical} and ProGrapher \cite{yang2023prographer} use graph-level approaches, but struggle with similar issues as StreamSpot and Unicorn. Despite the fact that many systems attempt to use data provenance for threat detection, methods that combine scope and timeliness are needed. The remarkable capabilities of KAIROS \cite{cheng2023kairos} make it an excellent competitor.
 
 \noindent
 {\bf Path-based Methods.} By extracting causal paths from the provenance graph, these models leverage existing learning methodologies. ProvDetector \cite{wang2020you} analyzes the provenance graph for malware detection by converting paths into embedded forms and utilizing the Local Outlier Factor method. However, due to the diversity of host-based threats, relying solely on paths from the provenance graph is not sufficient. ATLAS \cite{alsaheel2021atlas}uses sequence models to distinguish attack patterns, recognizing that explicit and abstract strategies may be analogous, regardless of vulnerabilities exploited and payloads executed.
 
 \noindent
-{\bf Node-based Methods.} To detect stealthy abnormal behavior without knowing prior attack patterns, ThreaTrace\cite{wang2022threatrace} employs a GraphSAGE-based framework that learns every benign node's role in a system data provenance graph. To address data imbalance and improve detection, ThreaTrace provides a multi-model framework to learn different types of benign nodes. 
+{\bf Node-based Methods.} To detect stealthy abnormal behavior without knowing prior attack patterns, ThreaTrace\cite{wang2022threatrace} employs a GraphSAGE-based framework that learns every benign node's role in a system data provenance graph. To address data imbalance and improve detection, ThreaTrace provides a multi-model framework to learn different types of benign nodes.
 
 \noindent
 {\bf Knowledge Graph Embedding-based Methods.} Tools like Shadewatcher\cite{zengy2022shadewatcher} and Watson\cite{zeng2021watson} both use knowledge graph embedding to represent the semantics of individual nodes and edges. This is a promising approach. The tactics used by attackers can, however, be varied and complex. An attacker who creates a malicious node that closely mimics a genuine node makes it difficult to identify it. Process hollowing attacks, for instance, use semantic information nearly identical to that of the functionality used to fill the hollowed node, making detection difficult. As well, it may be difficult to accurately represent a single process with a single vector because a single process may encompass multiple functionalities.
@@ -53,8 +53,8 @@ Anomaly-based detection techniques train models on benign behaviors, identifying
 A misuse-based detector detects cyber threats by comparing audit records with an attack semantics knowledge base.
 Developing security policies, however, is time-consuming and requires domain expertise, despite such detection maintaining a low false-positive rate.
 Holmes \cite{milajerdi2019holmes} uses prior definitions of exploits in a provenance graph based on existing TTPs (Tactics, Techniques, and Procedures).
-Based on the expertise of cyber threat reports, Poirot\ 
-cite{milajerdi2019poirot} focuses on correlated indicators and constructing attack graphs. 
+Based on the expertise of cyber threat reports, Poirot\
+cite{milajerdi2019poirot} focuses on correlated indicators and constructing attack graphs.
 A Morse command called \cite{hossain2020combating} is used to propagate the integrity and confidentiality tags for six million system entities.
 In spite of this, misuse-based methods have difficulty detecting unknown threats that do not meet established TTPs and reports.
 
