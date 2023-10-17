@@ -99,6 +99,13 @@
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
             \node[shape=circle,fill=black,text=white,inner sep=0.8pt] (char) {#1};}}
 
+\newcommand{\colorbar}[1]{%
+    \begin{tikzpicture}
+        \definecolor{mycolor}{RGB}{255,204,204}
+        \fill[mycolor] (0,0) rectangle (#1/100*0.7, 0.5); %0.7 is the width, adjust as needed
+        \draw[black] (0,0) rectangle (0.7,0.5);
+    \end{tikzpicture}
+}
 
 \definecolor{SoftRed}{RGB}{255,200,200}
 \definecolor{SoftGreen}{RGB}{200,255,200}

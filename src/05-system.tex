@@ -9,10 +9,12 @@
 
 \subsection{Definitions}
 
-\subsubsection{System Entity and System Event}
-We distinguish five principal entity categories: \textit{Processes}, \textit{Files}, \textit{Registry}, \textit{Dynamic Link Libraries (DLLs)}, and \textit{Network Connections}, the latter typically denoted by sockets. System entities possess unique attributes: the attributes associated with \textit{process} entities might include their Process ID (pid) or their executable paths. These entities' relationships and attributes are illustrated in Figure~\ref{fig-entity}. 
+% \subsubsection{System Entity and System Event}
+\noindent
+{\bf System Entity.} \yd{YD: STOP HERE!} In this work, we distinguish five principal entity categories: \textit{Processes}, \textit{Files}, \textit{Registry}, \textit{Dynamic Link Libraries (DLLs)}, and \textit{Network Connections}, the latter typically denoted by sockets. System entities possess unique attributes: the attributes associated with \textit{process} entities might include their Process ID (pid) or their executable paths. These entities' relationships and attributes are illustrated in Figure~\ref{fig-entity}. 
 
-In this work, a system event $e$ is given by a tuple $\langle src, dst, rel, time\rangle$, where $src$ designates the source entity, constrained to only process entities, $dst$ indicates the target or destination entity, $rel$ denotes their interaction nature (e.g., writing into a file), and $time$ specifies the timestamp of the event occurrence.
+\noindent
+{\bf System Event.} In this work, a system event $e$ is given by a tuple $\langle src, dst, rel, time\rangle$, where $src$ designates the source entity, constrained to only process entities, $dst$ indicates the target or destination entity, $rel$ denotes their interaction nature (e.g., writing into a file), and $time$ specifies the timestamp of the event occurrence.
 We also illustrated the temporal relationship between events as $\langle e_1 \to e_2 \to e_3 \rangle$, indicating that the events occur in a logical sequence. 
 
 
@@ -25,25 +27,29 @@ We also illustrated the temporal relationship between events as $\langle e_1 \to
 \end{figure}
 
 \subsection{Process Preprocessing}
-
-\subsubsection{Process Monitoring}
-
+% \subsubsection{Process Monitoring}
+\noindent
+{\bf Process Monitoring.} 
 Process monitoring is crucial: we need to gather logs from different processes in the system. In order to accomplish this, we use \textit{Windows}' robust log collection and processing tool, \textit{Sysmon}, to capture comprehensive system logs. \textit{Sysmon}'s default configuration ensures maximal log collection. 
 However, due to the vast amount of logs, it becomes imperative to trim the data down. Using expert knowledge, we remove redundant and mundane events from the logs.
 
-\subsubsection{Noisy Events Reduction}
+\noindent
+{\bf Noisy Events Reduction.} 
+% \subsubsection{Noisy Events Reduction}
 Due to their inherent granularity and verbosity, audit logs introduce significant noise for analysts.
 The omission of certain events does not impact the normal functioning of processes in behavioral cases. Integration of domain knowledge enhances our ability to reduce redundant events. 
 To begin with, we eliminate events that repeat themselves frequently.
 There are also actions that are universal to all processes, such as loading \textit{ntdll.dll}. We've streamlined these ubiquitous events for a more concise representation.
 
-\subsubsection{Process Classification}
-\label{sec:classifition}
+% \subsubsection{Process Classification}
+% \label{sec:classifition}
+\noindent
+{\bf Process Classification.} \label{sec:classifition}
 We created a prompt to query the LLMs about whether a particular program exists by name so that classification could be completed. Using the LLMs' response, we classified these processes into three categories: legitimate process names, illegitimate process names, 
 and uncertain process names (due to the LLMs database's incompleteness). Many illegitimate process names are caused by name confusion, so we can change them to legitimate process names for further evaluation.
 For the legitimate and confusion processes, we use the methods described in the following sections to construct profiles. In case of illegitimate or uncertain categories, security analysts should investigate further since they may contain malware.
 
-\subsection{Profile Construction}
+\subsection{Constraints Generation}
 \label{sec:profile_con}
 Next, we present our profile building module in detail, which consists of three agent components and a central program controller.
 \tool is controlled by a central program controller, which is often referred to as the "brain" of the system. In this central program controller, two components are integral: memory and validation mechanisms, which include both format and factual verification. 
