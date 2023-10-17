@@ -2,44 +2,71 @@
 
 \subsection{Stealthy APT Attacks}
 
-Advanced Persistent Threats (APTs) are sophisticated, targeted, evolving, and steathy cyberattacks orchestrated by specialized groups against high-risk entities, such as nuclear power plants, banks, and governments. Amid the dynamic cyber threat landscape, APTs are employing increasingly stealthy tactics like name obfuscation, process injection, and the manipulation of legitimate system utilities to bypass traditional security defenses \cite{barr2021survivalism}. Process injection, a prevalent technique, enables malicious code to operate within the confines of another process's address space. Attackers also employ tactics like executing benign binaries through tools like rundll32.exe and launching script-driven attacks using utilities such as powershell.exe. By exploiting these widely recognized and trusted tools, adversaries can discreetly penetrate and exert control over their target systems.
+Advanced Persistent Threats (APTs) are sophisticated, targeted, evolving, and steathy cyberattacks launched by specialized groups against high-risk entities, such as nuclear power plants, banks, and governments. APTs are using stealthy tactics such as name obfuscation\cite{cybereason2023,checkpoint2021,intrinsec}, process injection\cite{checkpoint2020,fsecure2019}, process hollow\cite{secureworks}, side-loading DLLs\cite{mitre_g0022,mitre_g0016}, and manipulating legitimate system utilities in order to bypass traditional security defenses due to the dynamic cyber threat landscape\cite{barr2021survivalism}. An example is Process injection, a popular technique for enabling malicious code to run within another process's address space.  Additionally, attackers use tools like \textit{rundll32.exe} to execute benign binaries and \textit{powershell.exe} to launch script-driven attacks\cite{li2019effective}. By exploiting these widely recognized and trusted tools, adversaries can discreetly penetrate and control their target systems.
 
 \subsection{Provenance Graph-Based APT Detection}
-To detect the myriad of stealthy APT attacks, provenance graph-based methods have gained significant traction in the host threat detection community. Over time, its potential for accurately identifying various host-based threats has been widely acknowledged. The primary detection techniques can be categorized into Anomaly-based, Misuse-based, and Statistics-based approaches.
+% Chenyan  usenix chair
+% Threat Detection and Investigation with System-level Provenance Graphs: A Survey
+% CONAN: A Practical Real-time APT Detection System with High Accuracy and Efficiency
+% Effective and Light-Weight Deobfuscation and Semantic-Aware Attack Detection for PowerShell Scripts
+% AttacKG: Constructing Technique Knowledge Graph from Cyber Threat Intelligence Reports
+% RATScope: Recording and Reconstructing Missing RAT Attacks for Forensic Analysis with Semantics on Windows
+% CONAN: A Practical Real-time APT Detection System with High Accuracy and Efficiency
 
-\textbf{Anomaly-based Approaches}:
+% PC member
+% Kangkook Jee
+% You Are What You Do: Hunting Stealthy Malware via Data Provenance Analysis
 
-Anomaly-based detection methods primarily train models on benign behaviors, identifying deviations as potential cyber-attacks. While these methods can achieve impressive detection accuracy by integrating the semantics of audit records into threat analysis, the existing learning solutions often do not provide insightful or explicable results. This lack of transparency can sometimes compromise their practical utility.
+% Ivan Martinovic
+% Survivalism: Systematic Analysis of Windows Malware Living-Off-The-Land
 
-\textit{Graph-based Methods:} The application of graph-based analysis for anomaly detection is computationally intensive and necessitates vast training datasets. Researchers have sought to address this by embedding provenance graphs into a vector space for ML model training. Tools like StreamSpot \cite{manzoor2016fast} and Unicorn \cite{han2020unicorn} operate by analyzing information flow graphs. While Unicorn exhibits superior performance due to its thorough graph analysis, both methods face challenges due to the constraints of graph kernel methods in identifying stealthy threats. Similarly, IPG \cite{li2021hierarchical} and ProGrapher \cite{yang2023prographer} employ a graph-level approach but grapple with issues comparable to StreamSpot and Unicorn. Notably, though many systems try to harness data provenance for threat detection, there's a palpable demand for methods that adeptly combine different aspects like scope and timeliness. Among the contenders, KAIROS \cite{cheng2023kairos} shines, offering exceptional detection and computational prowess. 
+% Z. Berkay Celik
+% ATLAS: A Sequence-based Learning Approach for Attack Investigation
 
-\textit{Path-based Methods:} These models work by extracting subcomponents, such as causal paths, from the provenance graph and vectorizing them, thereby tapping into existing learning methodologies. ProvDetector \cite{wang2020you} seeks to detect malware by delving into the provenance graph, converting paths in the graph into embedded forms and utilizing the Local Outlier Factor method for malware detection. However, with the diverse nature of host-based threats, relying solely on paths from the provenance graph is inadequate. On the other hand, ATLAS \cite{alsaheel2021atlas} derives both attack and non-attack sequences from graphs and uses sequence models to discern attack patterns, recognizing that distinct attacks might exhibit analogous abstract strategies, irrespective of exploited vulnerabilities and executed payloads.
+% Xiapu Luo
+% D IST D ET: A Cost-Effective Distributed Cyber Threat Detection System
 
-\textit{Node-based Methods:}ThreaTrace \cite{wang2022threatrace} uses a GraphSAGE-based framework that learns every benign node's role in a system data provenance graph to capture stealthy abnormal behavior without prior knowledge of attack patterns. Additionally, THREAT RACE designs a multi-model framework to learn different kinds of benign nodes, which tackles the problem of data imbalance and effectively improves detection performance. 
-
-\textit{Knowledge Graph Embedding-based Methods:} Tools like Watson\cite{zeng2021watson}and SHADEWATCHER \cite{zengy2022shadewatcher} excel at extracting overarching behaviors from detailed logs. However, these techniques come with a significant drawback: the loss of the original attack semantics.
-
-\textbf{Misuse-based Approaches}:
-Misuse-based detectors hunt down cyber threats by matching audit records against a knowledge base of security policies that describe attack semantics.
-While such detection can maintain a low false-positive rate, developing security policies is time-consuming and inevitably requires domain expertise.
-Holmes \cite{milajerdi2019holmes} leans towards alert generation, correlation, and scenario reconstruction, employing prior definitions of exploits in a provenance graph based on existing TTPs (Tactics, Techniques, and Procedures).
-Poirot \cite{milajerdi2019poirot} focuses on correlating indicators and constructing attack graphs through cyber threat report expertise. 
-Morse \cite{hossain2020combating} initializes conﬁdentiality and integrity tags of six million system entities for tag propagation.
-However, these misuse-based methods face challenges in detecting unknown threats that fall outside the established TTPs and reports.
-
-
-\textbf{Statistics-based Approaches}:
-Recent research suggests that security incidents in attack campaigns typically manifest as uncommon system activities \cite{liu2018towards,hassan2019nodoze,hassan2020we}. To assess the suspicion level of audit records, these studies measure them based on their historical frequency. While this approach is straightforward and can be effective, it is often plagued by a high rate of false positives. For instance, an alert might be triggered by an activity simply because it hasn't been observed before, even if it's just a benign process status retrieval. This method's primary limitation is its inability to distinguish between genuinely unusual records and new but semantically normal activities.
+% Adil Ahmad
+% Rethinking System Audit Architectures for High Event Coverage and Synchronous Log Availability
 
 
 
-% \href{https://docs.google.com/document/d/1PYN3Wi3AN8LlJ7L2TqaUhpZW85__DpX2NzsL41FY3iY/edit}{paper summary}
+
+Provenance graph-based methods are becoming increasingly popular in detecting stealthy APT attacks, due to their ability to identify a variety of host-based threats. There are three main detection methods based on Provenance graphs: anomaly-based detection, misuse-based detection, and statistics-based detection.
+
+\subsubsection{Anomaly-based Approaches}
+Anomaly-based detection techniques train models on benign behaviors, identifying deviations as potential cyber-attacks. Although these methods can detect threats with impressive accuracy by integrating audit record semantics into threat analysis, existing learning solutions often fail to provide insightful and explicable results, which can sometimes compromise their practical utility.
+
+\noindent
+{\bf Graph-based Methods.} Graph-based anomaly detection requires extensive training datasets and is computationally intensive. The researchers have embedded provenance graphs into vector space and developed tools such as StreamSpot \cite{manzoor2016fast} and Unicorn \cite{han2020unicorn} to analyze information flow graphs. Despite Unicorn's superior performance due to its thorough graph analysis, both methods face challenges in detecting stealthy threats due to graph kernel limitations. In the same way, IPG \cite{li2021hierarchical} and ProGrapher \cite{yang2023prographer} use graph-level approaches, but struggle with similar issues as StreamSpot and Unicorn. Despite the fact that many systems attempt to use data provenance for threat detection, methods that combine scope and timeliness are needed. The remarkable capabilities of KAIROS \cite{cheng2023kairos} make it an excellent competitor. 
+
+\noindent
+{\bf Path-based Methods.} By extracting causal paths from the provenance graph, these models leverage existing learning methodologies. ProvDetector \cite{wang2020you} analyzes the provenance graph for malware detection by converting paths into embedded forms and utilizing the Local Outlier Factor method. However, due to the diversity of host-based threats, relying solely on paths from the provenance graph is not sufficient. ATLAS \cite{alsaheel2021atlas}uses sequence models to distinguish attack patterns, recognizing that explicit and abstract strategies may be analogous, regardless of vulnerabilities exploited and payloads executed.
+
+\noindent
+{\bf Node-based Methods.} To detect stealthy abnormal behavior without knowing prior attack patterns, ThreaTrace\cite{wang2022threatrace} employs a GraphSAGE-based framework that learns every benign node's role in a system data provenance graph. To address data imbalance and improve detection, ThreaTrace provides a multi-model framework to learn different types of benign nodes. 
+
+\noindent
+{\bf Knowledge Graph Embedding-based Methods.} Tools like Shadewatcher\cite{zengy2022shadewatcher} and Watson\cite{zeng2021watson} both use knowledge graph embedding to represent the semantics of individual nodes and edges. This is a promising approach. The tactics used by attackers can, however, be varied and complex. An attacker who creates a malicious node that closely mimics a genuine node makes it difficult to identify it. Process hollowing attacks, for instance, use semantic information nearly identical to that of the functionality used to fill the hollowed node, making detection difficult. As well, it may be difficult to accurately represent a single process with a single vector because a single process may encompass multiple functionalities.
+
+\subsubsection{Misuse-based Approaches}
+A misuse-based detector detects cyber threats by comparing audit records with an attack semantics knowledge base.
+Developing security policies, however, is time-consuming and requires domain expertise, despite such detection maintaining a low false-positive rate.
+Holmes \cite{milajerdi2019holmes} uses prior definitions of exploits in a provenance graph based on existing TTPs (Tactics, Techniques, and Procedures).
+Based on the expertise of cyber threat reports, Poirot\ 
+cite{milajerdi2019poirot} focuses on correlated indicators and constructing attack graphs. 
+A Morse command called \cite{hossain2020combating} is used to propagate the integrity and confidentiality tags for six million system entities.
+In spite of this, misuse-based methods have difficulty detecting unknown threats that do not meet established TTPs and reports.
+
+\subsubsection{Statistics-based Approaches.} Recent research suggests that security incidents in attack campaigns typically manifest as uncommon system activities \cite{liu2018towards,hassan2019nodoze,hassan2020we}. According to these studies, audit records are analyzed based on their historical frequency. Although this approach is straightforward and effective, it often leads to false positives. It is possible for an alert to be triggered by an activity simply because it hasn't been observed before,  even if it is a benign update to the process status. Its primary limitation is its inability to distinguish between genuinely unusual records and new but semantically normal activities.
 
 
 \subsection{Large Language Models}
-Large Language Models (LLMs), such as OpenAI's GPT series, have ushered in a new era in natural language understanding. These models, benefiting from extensive corpus training, possess a vast range of knowledge and reasoning capabilities, enabling them to handle diverse natural language processing tasks and adapt to varied scenarios. Notably, with a simple natural language prompt, LLMs can be task-oriented, executing designated tasks without specific retraining. Using the Transformer model, LLMs interpret input prompts and generate corresponding answers, where the multi-self-attention and feed-forward layers collaborate to interpret context and produce the outcome.
+LLMs\cite{radford2018improving,radford2018improving,ouyang2022training}, such as OpenAI's GPT series, have revolutionized natural language understanding. Since these models have been trained extensively on corpora, they have a wide range of knowledge and reasoning capabilities, which makes them suitable for a variety of tasks associated with natural language processing. Using a simple natural language prompt, the LLMs can execute designated tasks without any specific retraining. Using the Transformer\cite{vaswani2017attention} model, LLMs interpret input prompts and generate corresponding answers, where multi-self-attention and feed-forward layers work together to interpret context.
+Meanwhile, LLMs are used to construct knowledge graphs for automated knowledge extraction\cite{zhu2023llms,pan2023unifying}, combining the capabilities of large language models with the accuracy of knowledge graphs.
 
-When it comes to the realm of cybersecurity, the capabilities of LLMs are gaining considerable attention. Their proven effectiveness spans areas like code analysis, vulnerability remediation, and attack detection. By harnessing their abilities in understanding, inference, and text generation, LLMs provide indispensable assistance to both computer science and cybersecurity arenas. The versatility of LLMs, combined with their human-like system interactions, makes them invaluable assets for cybersecurity endeavors. Given the extensive security knowledge required for APT attack detection, there's a strong belief that LLMs, with their superior knowledge extraction capabilities, can usher in new avenues for tackling such advanced threats
+In the field of cybersecurity, LLMs are gaining a considerable amount of attention. The abilities of LLMs to understand, infer, and generate text have a positive impact on computer science and cybersecurity. Its effectiveness has been proven in areas such as code analysis\cite{sun2023gpt,kang2023large}, code generation\cite{liu2023improving}, program repair\cite{wei2023copiloting}, vulnerability description mappings\cite{liu-etal-2023-end}, security test\cite{zhang2023well}, fuzzing test\cite{zhao2023understanding} and penetration Testing\cite{deng2023pentestgpt}. Fine-tuning LLMs are also utilized in the field of cybersecurity, adapting them to suit various tasks within the domain.
+With their superior knowledge extraction capabilities, LLMs may be able to detect advanced threats because of their versatility and human-like interaction.
 
 
 

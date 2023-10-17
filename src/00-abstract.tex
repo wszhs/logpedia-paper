@@ -1,24 +1,18 @@
 %-------------------------------------------------------------------------------
 \begin{abstract}
 %-------------------------------------------------------------------------------
-
-Advanced Persistent Threat (APT) attacks have become a significant concern for vital sectors including banking, military, and government, given their stealthy nature and prolonged presence. Traditional detection methods, such as provenance graphs, struggle to capture subtle attack signals because of the limited information and knowledge in log files.
-Furthermore, the current methods often lead to unclear and non-explainable results and cannot cope with the continual evolution of attack strategies. 
-To address the urgent need for security personnel to understand and respond to attacks both quickly and clearly, it's vital to have more transparent and up-to-date detection techniques. The solution lies in technologies capable of rapidly enhancing these methods with added knowledge.
-
-Fortunately, with recent advancements, Large Language Models (LLMs) have emerged as particularly promising in knowledge-centric tasks. In response to this, we introduce ProfileGuard-LLM (ProCon), a method that merges the effectiveness of provenance graph-based APT detection with the knowledge acquisition strengths of LLMs.
-Specifically, ProCon harnesses the LLM's ability to extract knowledge, forming a detailed profile of system processes and identifying processes' key constraints. We then convert these constraints into actionable rules, which can be seamlessly integrated into existing commercial solutions. Such rules are pivotal in bolstering the attack detection process, underscoring their practical significance.
-Additionally, drawing on the extensive knowledge of LLMs, ProCon efficiently detects attack patterns typically missed by conventional methods. This automated extraction enables swift profile updates, and without relying on predefined attack patterns, ProCon can identify novel and evolving threats.
-Our evaluations underline that ProCon not only minimizes false alarms but also offers system administrators an enriched understanding of the threat landscape, paving the way for quicker and more informed countermeasures.
-
-
-
-
-
-
-
-
-
-
+Advanced Persistent Threat (APT) attacks have become a pressing concern within critical sectors, including banking, military, and government, owing to their stealthy nature and prolonged presence. Traditional detection methods, such as those reliant on provenance graphs, struggle to capture subtle attack signals, primarily due to the limited information and knowledge encapsulated within log files.
+Furthermore, these approaches often yield ambiguous and non-explainable results and cannot cope with the continual evolution of attack strategies. 
+To address the compelling imperative for security personnel to swiftly and comprehensively detect and understand the attacks, the development of more transparent and advanced detection techniques becomes of paramount importance. 
+% YD: I comment out the following sentences.
+% The solution lies in technologies capable of rapidly enhancing these methods with added knowledge.
+% Fortunately, with recent advancements, Large Language Models (LLMs) have emerged as particularly promising in knowledge-centric tasks. 
+In this work, we propose \tool, an effective and explainable APT attack-detection method that merges the effectiveness of provenance graph-based APT detection with the knowledge acquisition capabilities of Large Language Models (LLMs).
+Specifically, \tool first utilizes LLMs to extract knowledge of system processes and construct a more detailed profile for each process. Then, \tool transforms each profile into a set of key constraints, upon which \tool can perform comprehensive threat detection.
+Drawing on the extensive knowledge gained through LLMs, \tool can effectively reduce ?\% false alarms and uncover ?\% more attack patterns that typically evade existing methods. This heightened capability also enables  \tool to provide deeper insights into the potential threats detected. Additionally, benefiting from its automated extraction capability, 
+%which facilitates swift profile updates and eliminates the dependence on the predefined attack patterns, 
+\tool has the ability to effectively and efficiently identify novel and evolving threats.
+% enables swift profile updates, and without relying on predefined attack patterns, \tool can identify novel and evolving threats.
+% As we spent around 21 minutes and 3.5\$ on each of 100 system profiles, \tool effectively reduces false alarms and provides deeper insight into threats, facilitating faster and more informed responses.
 
 \end{abstract}
