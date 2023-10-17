@@ -2,43 +2,53 @@
 
 \begin{figure*}[ht]
     \centering
-      \includegraphics[width=0.95\textwidth]{figs/framework.pdf}
-    \caption{The system process logs are collected and categorized using LLM as legitimate, illegitimate, and uncertain processes. Processes labeled uncertain or illegitimate are flagged for security analyst review (detailed in Section~\ref{sec:classifition}). If determined to be legitimate, LLM assists in the creation of a database of process constraints. This is achieved through behavior tree creation, command execution, constraint extraction and validation (explained in Section~\ref{sec:profile_con}). Logs that violate these constraints are indicative of potential threats (detailed in Section~\ref{sec:Threat_detection}).}
+      \includegraphics[width=0.95\textwidth]{figs/overview.pdf}
+      \caption{An overview of \tool.}
+    % \caption{The system process logs are collected and categorized using LLM as legitimate, illegitimate, and uncertain processes. Processes labeled uncertain or illegitimate are flagged for security analyst review (detailed in Section~\ref{sec:classifition}). If determined to be legitimate, LLM assists in the creation of a database of process constraints. This is achieved through behavior tree creation, command execution, constraint extraction and validation (explained in Section~\ref{sec:profile_con}). Logs that violate these constraints are indicative of potential threats (detailed in Section~\ref{sec:Threat_detection}).}
     \label{fig-framework}
     \end{figure*}
 
-\subsection{Threat Model}
-We will begin by defining a threat model in this paper. This project aims to address the threat of APT attacks targeting critical entities that have been identified as critical infrastructure. These attacks have the following characteristics:
+\subsection{Threat Model}\label{sec:threatModel}
+In this paper, we consider APT attacks targeting critical entities that have been identified as critical infrastructure, and these attacks have the following characteristics:
 
 \begin{itemize}
-    \item \textbf{Stealthy}. Instead of simply performing an attack, the attacker consciously hides their malicious activities, trying to mix their behavior with a large amount of benign background data, which makes the victim system perform like a benign mode.
-    \item \textbf{Evolving}. As professional attacker groups continue to innovate, they are targeting an ever-expanding range of system processes and adapting to the latest defensive measures in order to stay ahead of the game. 
-    \item \textbf{Frequent usage of zero-day exploits}. The attacker tends to use zero-day exploits to attack a system. Therefore, we assume that there are no attack patterns for training.
+    \item \textbf{Stealthy}. The attacker employs covert tactics, concealing their malicious activities amid a substantial volume of benign background data, resulting in the victim system exhibiting behavior akin to a benign mode.
+    \item \textbf{Evolving}. Professional attacker groups continually innovate, extending their targets to a broader array of system processes and adeptly adjusting to the latest defensive mechanisms to maintain a competitive edge.
+    %As professional attacker groups continue to innovate, they are targeting an ever-expanding range of system processes and adapting to the latest defensive measures in order to stay ahead of the game. 
+    \item \textbf{Frequent usage of zero-day exploits}. The attacker primarily relies on zero-day exploits, resulting in a lack of advance knowledge w.r.t. the specific attack patterns.
 \end{itemize}
-As an alternative to sample-focused analysis, we propose to observe ubiquitous OS kernel processes. The system processes are always present and do not need to be identified before analysis, unlike suspicious samples.
+% Note that, as an alternative to sample-focused analysis, we propose to observe ubiquitous OS kernel processes. The system processes are always present and do not need to be identified before analysis, unlike suspicious samples.
 
 \subsection{Technical Challenges}
-
-How can we efficiently extract these constraints? It's a crucial question. Fortunately, LLMs offers significant advantages when it comes to building process profiles due to its exceptional knowledge extraction capabilities.
-However, we found that using LLMs construction processes directly posed the following three technical challenges.
+A straightforward idea is to utilize the knowledge extraction capabilities in LLMs to facilitate the construction of more comprehensive profiles and constraints for victim system processes first, which can then be employed for conducting further thorough attack detection analysis. Recall that,
+when dealing with the evolution of attacks or their stealthy tactics, supplemental knowledge can be very crucial. Moreover, in contrast to learning-based detection methods, this approach obviates the requirement for pre-defined attack patterns, which also enhances its adaptability and versatility in addressing evolving threat landscapes.
+%How can we efficiently extract these constraints? It's a crucial question. Fortunately, LLMs offers significant advantages when it comes to building process profiles due to its exceptional knowledge extraction capabilities.
+However, the direct employment of LLMs in our setting gives rise to the following three notable technical challenges:
 
 % \circled{1} Complexity Handling: It might be difficult for LLMs to give comprehensive solutions when they are faced with complicated questions or scenarios.
 
 \noindent
 {\bf CH-\circled{1} Context Dependency.} %  : 
-In order to provide accurate results, LLMs often require a rich contextual environment. In the absence of this, their responses can be generic or imprecise. 
+To achieve precise outcomes, LLMs commonly necessitate an enriched contextual environment. In the absence thereof, their responses may exhibit a propensity towards generality or imprecision. However, ... \yd{YD: Add statement about "hardness in our setting to get enriched context environment directly"}
 
 \noindent
 {\bf CH-\circled{2} Memory Limitations.} % \circled{2}
-Due to its token limit, LLMs cannot handle excessively long texts. In addition, LLMs tend to focus more on recent interactions and overlook previous details in a conversation history. 
+\yd{YD: Add statement about facts w.r.t long context in our setting.} However, owing to the constraints imposed by their token limits, LLMs encounter challenges when confronted with exceedingly lengthy texts. Moreover, LLMs exhibit a proclivity for prioritizing recent interactions, often at the expense of overlooking pertinent details embedded within the broader context of prior conversational history.
+% Due to its token limit, LLMs cannot handle excessively long texts. In addition, LLMs tend to focus more on recent interactions and overlook previous details in a conversation history. 
 
 \noindent
-{\bf CH-\circled{3} Hallucinations.} % \circled{3} 
-This is a risk that might reveal plausible-looking yet factually unsupported or nonexistent information if the model does produce hallucinations. 
+{\bf CH-\circled{3} Hallucination Problems.} % \circled{3} 
+In spite of the remarkable advancement of LLMs in excelling across a diverse spectrum of understanding tasks, these intelligent models still show a significant drawback: the tendency to `hallucinate', i.e., they may generate misinformation and lead to unsafe behaviors.\yd{YD: Add refers about Hallucination.}
+% This risk entails
+In this work, such a risk entails the possibility of the model generating information for a given system process that appears plausible at first glance but lacks factual support or corresponds to non-existent realities.
+% that might reveal plausible-looking yet factually unsupported or nonexistent information if the model does produce hallucinations. 
 
 % Therefore, the key to building process profiles using LLMs is overcoming these challenges which is the central focus of this paper.
 
 \subsection{Overview of \tool}
+In this work, we propose an effective LLMs-based APT attack detection framework, named \tool, addressing all the above challenges. The overview of \tool can be found in Figure~\ref{fig-framework}. \tool comprises three main components: Process Preprocessing, Constraints Generation, and Threat Detection.
+Given a set of logs collected from system processes, \tool first conducts process classification based on the name of 
+
 As illustrated in Figure~\ref{fig-framework}, we accessed a log collection tool to collect logs from a variety of system processes that were running at different times in the system. Utilizing the powerful capabilities of LLMs, we were able to categorize these processes based on their names into three distinct categories: legitimate process names, illegitimate process names, and uncertain process names (due to the inherent incompleteness of the GPT's database). As for the latter two categories, we classified them as potentially malicious, requiring more investigation by security analysts in order to determine whether they are malicious or not. A more in-depth examination of this process is provided in Section~\ref{sec:classifition}.
 
 As for processes that were classified with legitimate names, we used the LLMs to construct a database that outlined the normal constraints of the process.
