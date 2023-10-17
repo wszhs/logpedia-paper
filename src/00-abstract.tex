@@ -1,18 +1,48 @@
 %-------------------------------------------------------------------------------
 \begin{abstract}
 %-------------------------------------------------------------------------------
-Advanced Persistent Threat (APT) attacks have become a pressing concern within critical sectors, including banking, military, and government, owing to their stealthy nature and prolonged presence. Traditional detection methods, such as those reliant on provenance graphs, struggle to capture subtle attack signals, primarily due to the limited information and knowledge encapsulated within log files.
-Furthermore, these approaches often yield ambiguous and non-explainable results and cannot cope with the continual evolution of attack strategies. 
-To address the compelling imperative for security personnel to swiftly and comprehensively detect and understand the attacks, the development of more transparent and advanced detection techniques becomes of paramount importance. 
-% YD: I comment out the following sentences.
-% The solution lies in technologies capable of rapidly enhancing these methods with added knowledge.
-% Fortunately, with recent advancements, Large Language Models (LLMs) have emerged as particularly promising in knowledge-centric tasks. 
-In this work, we propose \tool, an effective and explainable APT attack-detection method that merges the effectiveness of provenance graph-based APT detection with the knowledge acquisition capabilities of Large Language Models (LLMs).
-Specifically, \tool first utilizes LLMs to extract knowledge of system processes and construct a more detailed profile for each process. Then, \tool transforms each profile into a set of key constraints, upon which \tool can perform comprehensive threat detection.
-Drawing on the extensive knowledge gained through LLMs, \tool can effectively reduce ?\% false alarms and uncover ?\% more attack patterns that typically evade existing methods. This heightened capability also enables  \tool to provide deeper insights into the potential threats detected. Additionally, benefiting from its automated extraction capability, 
-%which facilitates swift profile updates and eliminates the dependence on the predefined attack patterns, 
-\tool has the ability to effectively and efficiently identify novel and evolving threats.
-% enables swift profile updates, and without relying on predefined attack patterns, \tool can identify novel and evolving threats.
-% As we spent around 21 minutes and 3.5\$ on each of 100 system profiles, \tool effectively reduces false alarms and provides deeper insight into threats, facilitating faster and more informed responses.
+Advanced Persistent Threat (APT) attacks have long been a pressing concern
+in critical sectors such as banking and government.
+Trojan programs, the malware disguising normal system process,
+play an important role in the post-intrusion stage of APT attacks.
+Researchers are fighting an uphill battle against APT attacks
+owing to their stealthy nature and prolonged presence.
+The state-of-the-art detection approaches are usually machine learning driven solutions on collected system logs,
+e.g., graph embedding on the constructed provenance graphs.
+However, given their statistical and probabilistic nature,
+industrial security engineers are challenging to verify the reported alarms,
+making the false alarms prohibitively expensive.
+
+In this work, we propose \tool,
+a trojan-oriented explainable intrusion detection technique,
+to report disguising trojans in APT attack.
+\tool considers the trojan-induced intrusion detection problem as a problem of
+detecting a ``lie'' in the runtime system.
+%Thus, we address the problem in a counter-factual manner.
+Thus, we raise intrusion alarm based on the inconsistency between
+the behaviors of a target program (e.g., scanning the ports) and
+its claimed process intention (e.g., \textit{svchost.exe}).
+On one hand, we construct the normal behaviorial profile of a system process by extracting
+its verifiable logical formula from LLM,
+representing its behaviorial invariants.
+On the other hand, we extract the runtime behavior of plausible system processes
+from the system logs.
+The violation of process from its normality (i.e., behaviorial invariants) serves as both the explanation and alarm.
+Our extensive experiment on \linyun{XX} systems shows that 
+\tool is effective in reporting trojan-based APT attack (with the precision of \linyun{100\%} and the recall of \linyun{??\%}),
+at the cost of minimum runtime overhead (of on average \linyun{3s}).
+Further, our wild study shows that \tool can detect \linyun{??} trojan-based attacks on \linyun{??} systems.
+
+
+%% YD: I comment out the following sentences.
+%% The solution lies in technologies capable of rapidly enhancing these methods with added knowledge.
+%% Fortunately, with recent advancements, Large Language Models (LLMs) have emerged as particularly promising in knowledge-centric tasks.
+%In this work, we propose \tool, an effective and explainable APT attack-detection method that merges the effectiveness of provenance graph-based APT detection with the knowledge acquisition capabilities of Large Language Models (LLMs).
+%Specifically, \tool first utilizes LLMs to extract knowledge of system processes and construct a more detailed profile for each process. Then, \tool transforms each profile into a set of key constraints, upon which \tool can perform comprehensive threat detection.
+%Drawing on the extensive knowledge gained through LLMs, \tool can effectively reduce ?\% false alarms and uncover ?\% more attack patterns that typically evade existing methods. This heightened capability also enables  \tool to provide deeper insights into the potential threats detected. Additionally, benefiting from its automated extraction capability,
+%%which facilitates swift profile updates and eliminates the dependence on the predefined attack patterns,
+%\tool has the ability to effectively and efficiently identify novel and evolving threats.
+%% enables swift profile updates, and without relying on predefined attack patterns, \tool can identify novel and evolving threats.
+%% As we spent around 21 minutes and 3.5\$ on each of 100 system profiles, \tool effectively reduces false alarms and provides deeper insight into threats, facilitating faster and more informed responses.
 
 \end{abstract}

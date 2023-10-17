@@ -1,0 +1,405 @@
+33 Patch Control
+
+0
+0
+1
+main.tex
+127
+2
+1
+
+main.tex
+TeX:UTF-8
+152055803 0 -1 2983 -1 2983 192 192 1395 589 0 1 45 546 -1 -1 0 0 51 -1 -1 51 1 0 2983 -1  0 -1 0
+src\00-abstract.tex
+TeX
+269496315 0 -1 3910 -1 2659 0 0 1332 407 0 1 325 420 -1 -1 0 0 80 -1 -1 80 1 0 2659 -1  0 -1 0
+:\paper-space\phishing-decloaker\main.tex
+TeX
+269496315 0 32 41 -1 789 32 32 1358 425 0 1 325 693 -1 -1 0 0 1573 -1 -1 1573 1 0 789 -1  0 -1 0
+:\paper-space\phishing-decloaker\approach\captcha_detection.tex
+TeX
+1060859 0 -1 164 -1 258 32 32 1139 652 0 1 395 126 -1 -1 0 0 30 -1 -1 30 1 0 258 -1  0 -1 0
+:\paper-space\phishing-decloaker\approach_softening.tex
+TeX
+1060859 0 -1 175 -1 286 32 32 1267 431 0 1 695 84 -1 -1 0 0 20 -1 -1 20 1 0 286 -1  0 -1 0
+:\paper-space\phishing-decloaker\threat-model.tex
+TeX
+1060859 0 -1 642 -1 1141 96 96 1331 495 0 1 335 357 -1 -1 0 0 22 -1 -1 22 1 0 1141 -1  0 -1 0
+:\paper-space\phishing-decloaker\rq1.tex
+TeX
+1060859 0 -1 3302 -1 3300 160 160 1395 559 0 1 275 252 -1 -1 0 0 1047 -1 -1 1047 1 0 3300 -1  0 -1 0
+:\paper-space\phishing-decloaker\rq6.tex
+TeX
+1060859 0 -1 0 -1 0 160 160 1395 559 0 1 45 0 -1 -1 0 0 0 -1 -1 0 1 0 0 -1  0 0 0
+:\paper-space\phishing-decloaker\experiment.tex
+TeX
+1060859 1 -1 190 -1 195 160 160 1395 559 0 1 665 105 -1 -1 0 0 21 -1 -1 21 1 0 195 -1  0 -1 0
+:\paper-space\phishing-decloaker\rq2.tex
+TeX
+1060859 1 -1 227 -1 74 0 0 1235 399 0 1 45 63 -1 -1 0 0 2874 -1 -1 2874 1 0 74 -1  0 -1 0
+:\paper-space\phishing-decloaker\rq4.tex
+TeX
+1060859 0 80 17 -1 2499 64 64 1299 463 0 1 1145 315 -1 -1 0 0 7046 -1 -1 7046 1 0 2499 -1  0 -1 0
+:\paper-space\phishing-decloaker\rq3.tex
+TeX
+1060859 0 -1 1191 -1 1166 32 32 1267 431 0 1 245 462 -1 -1 0 0 2904 -1 -1 2904 1 0 1166 -1  0 -1 0
+:\paper-space\phishing-decloaker\approach\captcha_solver.tex
+TeX
+1060859 0 -1 0 -1 0 0 0 1107 620 0 1 45 0 -1 -1 0 0 28 -1 -1 28 1 0 0 -1  0 -1 0
+:\paper-space\phishing-decloaker\approach\captcha_recognition.tex
+TeX
+1060859 0 -1 0 -1 0 288 288 1395 908 0 1 45 0 -1 -1 0 0 32 -1 -1 32 1 0 0 -1  0 -1 0
+:\paper-space\phishing-decloaker\rq5.tex
+TeX
+17838075 0 -1 5099 -1 4480 96 96 1331 495 0 1 155 462 -1 -1 0 0 5292 -1 -1 5292 1 0 4480 -1  0 -1 0
+:\paper-space\phishing-decloaker\introduction.tex
+TeX
+17838075 0 -1 8593 -1 8850 32 32 1267 431 0 1 55 357 -1 -1 0 0 43 -1 -1 43 1 0 8850 -1  0 -1 0
+:\paper-space\phishing-decloaker\captcha-code.tex
+TeX
+1060859 0 -1 27 -1 39 64 64 1299 463 0 1 75 63 -1 -1 0 0 6 -1 -1 6 1 0 39 -1  0 0 0
+:\paper-space\phishing-decloaker\approach_hardening.tex
+TeX
+1060859 1 -1 88 -1 105 0 0 1235 399 0 1 285 21 -1 -1 0 0 65 -1 -1 65 1 0 105 -1  0 -1 0
+:\paper-space\phishing-decloaker\related-work.tex
+TeX
+1060859 1 -1 3824 -1 3860 0 0 1235 399 0 1 695 378 -1 -1 0 0 22 -1 -1 22 1 0 3860 -1  0 -1 0
+:\paper-space\phishing-decloaker\bibtex\IEEEexample.bib
+BibTeX
+1049586 0 6 31 6 33 128 128 1363 527 0 1 365 126 -1 -1 0 0 1 0 0 1 1 0 33 6  0 -1 0
+:\paper-space\phishing-decloaker\bibtex\IEEEabrv.bib
+BibTeX
+1049586 0 0 1 0 1 96 96 1331 495 0 1 45 0 -1 -1 0 0 1 0 0 1 1 0 1 0  0 0 0
+:\paper-space\phishing-decloaker\conclusion.tex
+TeX
+1060859 0 -1 0 -1 1547 160 160 1395 559 0 1 1395 189 -1 -1 0 0 20 -1 -1 20 1 0 1547 -1  0 -1 0
+:\paper-space\PhishLLM-paper\main.tex
+TeX
+269496315 0 -1 503 -1 7865 128 128 1063 591 0 1 55 1008 -1 -1 0 0 0 -1 -1 0 1 0 7865 -1  0 -1 0
+:\paper-space\PhishLLM-paper\conclusion.tex
+TeX
+1060859 0 -1 61 -1 611 64 64 1299 463 0 1 1045 168 -1 -1 0 0 -1 -1 -1 -1 1 0 611 -1  0 -1 0
+:\paper-space\PhishLLM-paper\related-work.tex
+TeX
+1060859 0 -1 62 -1 62 32 32 1267 431 0 1 405 42 -1 -1 0 0 -1 -1 -1 -1 1 0 62 -1  0 -1 0
+:\paper-space\PhishLLM-paper\experiment.tex
+TeX
+1060859 0 -1 22952 -1 23106 192 192 1363 699 0 1 305 294 -1 -1 0 0 0 -1 -1 0 1 0 23106 -1  0 -1 0
+:\paper-space\PhishLLM-paper\discussion.tex
+TeX
+1060859 1 -1 216 -1 5643 96 96 1235 693 0 1 855 483 -1 -1 0 0 20 -1 -1 20 1 0 5643 -1  0 -1 0
+:\paper-space\PhishLLM-paper\crp-transition.tex
+TeX
+1060859 0 -1 6294 -1 6146 160 160 1331 667 0 1 1055 252 -1 -1 0 0 43 -1 -1 43 1 0 6146 -1  0 -1 0
+:\paper-space\PhishLLM-paper\tables\rq3.tex
+TeX
+1060859 0 26 14 -1 0 160 160 1395 559 0 1 45 0 -1 -1 0 0 -1 -1 -1 -1 1 0 0 -1  0 0 0
+:\paper-space\PhishLLM-paper\introduction.tex
+TeX
+17838075 0 -1 10141 -1 10108 160 160 1299 757 0 1 435 399 -1 -1 0 0 22 -1 -1 22 1 0 10108 -1  0 -1 0
+:\paper-space\PhishLLM-paper\sample-base.bib
+BibTeX
+1049586 0 8 10 0 1 0 0 1235 399 0 1 45 0 -1 -1 0 0 -1 -1 -1 -1 1 0 1 0  0 -1 0
+:\paper-space\PhishLLM-paper\tables\rq2&4.tex
+TeX
+1060859 0 -1 1122 -1 1137 96 96 1331 495 0 1 555 189 -1 -1 0 0 -1 -1 -1 -1 1 0 1137 -1  0 -1 0
+:\paper-space\PhishLLM-paper\tables\rq1.tex
+TeX
+1060859 0 22 14 -1 0 128 128 1363 527 0 1 45 0 -1 -1 0 0 -1 -1 -1 -1 1 0 0 -1  0 0 0
+:\paper-space\PhishLLM-paper\tables\crp_prompt.tex
+TeX
+1060859 0 -1 56 -1 57 224 224 1395 731 0 1 405 42 -1 -1 0 0 0 -1 -1 0 1 0 57 -1  0 -1 0
+:\paper-space\PhishLLM-paper\crp-prediction.tex
+TeX
+1060859 8 -1 163 -1 93 128 128 1299 635 0 1 45 189 -1 -1 0 0 0 -1 -1 0 1 0 93 -1  0 -1 0
+:\paper-space\PhishLLM-paper\brand-recognition.tex
+TeX
+1060859 0 -1 10510 -1 10726 96 96 1267 603 0 1 1045 504 -1 -1 0 0 53 -1 -1 53 1 0 10726 -1  0 -1 0
+:\paper-space\PhishLLM-paper\approach.tex
+TeX
+1060859 0 -1 6743 -1 6648 192 192 1127 677 0 1 155 525 -1 -1 0 0 1162 -1 -1 1162 1 0 6648 -1  0 -1 0
+:\paper-space\PhishLLM-paper\threat_model.tex
+TeX
+1060859 0 -1 792 -1 792 128 128 1267 725 0 1 45 315 -1 -1 0 0 0 -1 -1 0 1 0 792 -1  0 -1 0
+:\paper-space\PhishLLM-paper\tables\prompt_comparison.tex
+TeX
+1060859 0 -1 252 -1 387 192 192 1363 699 0 1 255 105 -1 -1 0 0 16 -1 -1 16 1 0 387 -1  0 -1 0
+:\paper-space\PhishLLM-paper\tables\brand_prompt.tex
+TeX
+1060859 0 20 87 -1 702 160 160 1331 667 0 1 1025 399 -1 -1 0 0 -1 -1 -1 -1 1 0 702 -1  0 -1 0
+:\paper-space\TrustVis\experiment.tex
+TeX
+1060859 0 -1 679 -1 715 32 32 1032 354 1 1 105 399 -1 -1 0 0 25 -1 -1 25 1 0 715 -1  0 -1 0
+:\paper-space\TrustVis\tables\robustness.tex
+TeX
+1060859 0 -1 8336 -1 8316 160 160 1128 619 0 1 45 630 -1 -1 0 0 15 -1 -1 15 1 0 8316 -1  0 -1 0
+:\paper-space\TrustVis\tables\abliation_study.tex
+TeX
+1060859 0 -1 28097 -1 28131 192 192 1160 651 0 1 215 567 -1 -1 0 0 71 -1 -1 71 1 0 28131 -1  0 -1 0
+:\paper-space\TrustVis\approach.tex
+TeX
+1060859 0 -1 1297 -1 1423 32 32 1428 359 0 1 95 546 -1 -1 0 0 18 -1 -1 18 1 0 1423 -1  0 -1 0
+:\paper-space\TrustVis\problem.tex
+TeX
+1060859 8 -1 129 -1 78 96 96 1492 423 0 1 45 84 -1 -1 0 0 44 -1 -1 44 1 0 78 -1  0 -1 0
+:\paper-space\TrustVis\motivating-example.tex
+TeX
+1060859 0 -1 1770 -1 1786 0 0 1396 327 0 1 365 651 -1 -1 0 0 28 -1 -1 28 1 0 1786 -1  0 -1 0
+:\paper-space\TrustVis\algorithm\active_learning.tex
+TeX
+1060859 0 -1 814 -1 806 64 64 1460 391 1 1 445 84 -1 -1 0 0 0 -1 -1 0 1 0 806 -1  0 -1 0
+:\paper-space\TrustVis\intro.tex
+TeX
+1060859 0 -1 9072 -1 9016 128 128 2070 1017 0 1 505 567 -1 -1 0 0 26 -1 -1 26 1 0 9016 -1  0 -1 0
+:\paper-space\TrustVis\reference.bib
+BibTeX
+1049586 1 16 28 16 10 160 160 1160 490 0 1 135 336 -1 -1 0 0 16 0 0 16 1 0 10 16  0 -1 0
+:\paper-space\TrustVis\related-work.tex
+TeX
+1060859 0 -1 2437 -1 2441 64 64 1064 386 0 1 625 420 -1 -1 0 0 27 -1 -1 27 1 0 2441 -1  0 -1 0
+:\paper-space\TrustVis\active-learning.tex
+TeX
+1060859 0 -1 1655 -1 1739 0 0 1396 327 0 1 885 567 -1 -1 0 0 51 -1 -1 51 1 0 1739 -1  0 -1 0
+:\paper-space\TrustVis\topology-construction.tex
+TeX
+1060859 0 -1 1565 -1 1551 128 128 1524 455 0 1 55 567 -1 -1 0 0 46 -1 -1 46 1 0 1551 -1  0 -1 0
+:\paper-space\TrustVis\tables\nn-preserving.tex
+TeX
+1060859 0 -1 2903 -1 2907 0 0 968 437 0 1 675 147 -1 -1 0 0 16 -1 -1 16 1 0 2907 -1  0 -1 0
+:\paper-space\TrustVis\tables\vis_error.tex
+TeX
+1060859 0 -1 12767 -1 12771 64 64 1032 501 0 1 215 609 -1 -1 0 0 71 -1 -1 71 1 0 12771 -1  0 -1 0
+:\paper-space\TrustVis\conclusion.tex
+TeX
+1060859 0 -1 568 -1 664 96 96 1096 418 0 1 55 189 -1 -1 0 0 22 -1 -1 22 1 0 664 -1  0 -1 0
+:\paper-space\TrustVis\rq1.tex
+TeX
+1060859 0 -1 2025 -1 3273 192 192 1160 629 0 1 45 525 -1 -1 0 0 49 -1 -1 49 1 0 3273 -1  0 -1 0
+:\paper-space\TrustVis\tables\subject_model_desc.tex
+TeX
+1060859 0 -1 2448 -1 2461 128 128 1096 587 0 1 175 672 -1 -1 0 0 15 -1 -1 15 1 0 2461 -1  0 -1 0
+:\paper-space\TrustVis\rq3.tex
+TeX
+1060859 0 -1 1586 -1 832 32 32 1000 469 0 1 445 420 -1 -1 0 0 41 -1 -1 41 1 0 832 -1  0 -1 0
+:\paper-space\TrustVis\rq2.tex
+TeX
+1060859 0 -1 154 -1 69 0 0 968 437 0 1 115 84 -1 -1 0 0 54 -1 -1 54 1 0 69 -1  0 -1 0
+:\paper-space\TrustVis\main.tex
+TeX:UTF-8
+17838075 0 -1 4366 -1 4366 96 96 1096 418 0 1 565 336 -1 -1 0 0 33 -1 -1 33 1 0 4366 -1  0 -1 0
+:\paper-space\TrustVis\algorithm\topology-construction.tex
+TeX
+1060859 1 -1 1702 -1 1695 0 0 1000 330 1 1 175 399 -1 -1 0 0 -1 -1 -1 -1 1 0 1695 -1  0 -1 0
+:\paper-space\debug-pilot\paper_draft.tex
+TeX
+269496315 0 -1 6361 -1 6356 32 32 1358 425 0 1 615 189 -1 -1 0 0 1350 -1 -1 1350 1 0 6356 -1  0 -1 0
+:\paper-space\debug-pilot\introduction.tex
+TeX
+1060859 1 -1 22 -1 0 192 192 1518 585 0 1 45 0 -1 -1 0 0 0 -1 -1 0 1 0 0 -1  0 -1 0
+:\paper-space\debug-pilot\motivating-example.tex
+TeX
+1060859 0 -1 9 -1 27 0 0 1326 393 0 1 315 0 -1 -1 0 0 0 -1 -1 0 1 0 27 -1  0 -1 0
+:\paper-space\debug-pilot\approach.tex
+TeX
+1060859 0 -1 0 -1 33153 96 96 1422 489 0 1 165 441 -1 -1 0 0 18 -1 -1 18 1 0 33153 -1  0 -1 0
+:\paper-space\debug-pilot\experiment.tex
+TeX
+1060859 0 -1 10 -1 19 128 128 1454 521 0 1 235 0 -1 -1 0 0 21 -1 -1 21 1 0 19 -1  0 -1 0
+:\paper-space\debug-pilot\user-study.tex
+TeX
+1060859 0 -1 10 -1 19 160 160 1486 553 0 1 235 0 -1 -1 0 0 21 -1 -1 21 1 0 19 -1  0 -1 0
+:\paper-space\debug-pilot\related-work.tex
+TeX
+1060859 0 -1 10 -1 21 192 192 1518 585 0 1 255 0 -1 -1 0 0 23 -1 -1 23 1 0 21 -1  0 -1 0
+:\paper-space\debug-pilot\conclusion.tex
+TeX
+1060859 0 -1 10 -1 19 0 0 1326 393 0 1 235 0 -1 -1 0 0 21 -1 -1 21 1 0 19 -1  0 -1 0
+:\paper-space\logpedia\0-main.tex
+TeX
+403714043 0 -1 0 -1 564 32 32 1358 425 0 1 45 294 -1 -1 0 0 36 -1 -1 36 1 0 564 -1  0 -1 0
+:\paper-space\dl-visual-debugger-fse\main.tex
+TeX
+269496315 0 -1 6540 -1 6243 0 0 1326 411 0 1 395 273 -1 -1 0 0 72 -1 -1 72 1 0 6243 -1  0 -1 0
+:\paper-space\Tempo_Critical_Training_Dynamics\intro.tex
+TeX
+1060859 0 -1 2830 -1 3416 0 0 1326 393 0 1 155 420 -1 -1 0 0 -1 -1 -1 -1 1 0 3416 -1  0 -1 0
+:\paper-space\dl-visual-debugger-fse\visualization.tex
+TeX
+1060859 0 -1 4263 -1 4265 64 64 1390 475 1 1 235 336 -1 -1 0 0 45 -1 -1 45 1 0 4265 -1  0 -1 0
+:\paper-space\dl-visual-debugger-fse\intro.tex
+TeX
+17838075 0 -1 5034 -1 5037 32 32 1358 443 0 1 1325 273 -1 -1 0 0 39 -1 -1 39 1 0 5037 -1  0 -1 0
+:\paper-space\dl-visual-debugger-fse\related-work.tex
+TeX
+1060859 0 -1 4916 -1 4969 64 64 1422 466 0 1 675 357 -1 -1 0 0 46 -1 -1 46 1 0 4969 -1  0 -1 0
+:\paper-space\dl-visual-debugger-fse\rq4.tex
+TeX
+1060859 0 -1 2612 -1 2614 96 96 1422 507 0 1 315 462 -1 -1 0 0 29 -1 -1 29 1 0 2614 -1  0 -1 0
+:\paper-space\dl-visual-debugger-fse\rq3.tex
+TeX
+1060859 8 -1 453 -1 374 96 96 1390 559 0 1 45 42 -1 -1 0 0 53 -1 -1 53 1 0 374 -1  0 -1 0
+:\paper-space\dl-visual-debugger-fse\rq2.tex
+TeX
+1060859 0 165 15 -1 8197 0 0 845 342 0 1 55 168 -1 -1 0 0 54 -1 -1 54 1 0 8197 -1  0 -1 0
+:\paper-space\dl-visual-debugger-fse\evaluation.tex
+TeX
+1060859 1 -1 1854 -1 1850 128 128 1454 539 0 1 65 315 -1 -1 0 0 36 -1 -1 36 1 0 1850 -1  0 -1 0
+:\paper-space\dl-visual-debugger-fse\rq1.tex
+TeX
+17838075 0 -1 3357 -1 3841 128 128 973 470 1 1 105 378 -1 -1 0 0 52 -1 -1 52 1 0 3841 -1  0 -1 0
+:\paper-space\dl-visual-debugger-fse\implementation.tex
+TeX
+1060859 0 -1 458 -1 470 160 160 1486 571 0 1 255 210 -1 -1 0 0 18 -1 -1 18 1 0 470 -1  0 -1 0
+:\paper-space\dl-visual-debugger-fse\recommendation.tex
+TeX
+1060859 0 -1 10239 -1 10109 0 0 1326 411 0 1 225 252 -1 -1 0 0 12584 -1 -1 12584 1 0 10109 -1  0 -1 0
+:\paper-space\dl-visual-debugger-fse\approach.tex
+TeX
+1060859 0 -1 555 -1 633 192 192 1518 603 0 1 345 273 -1 -1 0 0 47 -1 -1 47 1 0 633 -1  0 -1 0
+:\paper-space\localized-learning\rq-2.tex
+TeX
+1060859 8 -1 1237 -1 901 96 96 1454 498 0 1 655 294 -1 -1 0 0 45 -1 -1 45 1 0 901 -1  0 -1 0
+:\paper-space\localized-learning\experiment.tex
+TeX
+1060859 0 -1 10181 -1 10181 64 64 1422 466 0 1 125 294 -1 -1 0 0 42 -1 -1 42 1 0 10181 -1  0 -1 0
+:\paper-space\DynaPhish-paper\approach\brand_knowledge_expansion.tex
+TeX
+269496315 1 -1 5526 -1 6283 128 128 941 502 0 1 195 357 -1 -1 0 0 75 -1 -1 75 1 0 6283 -1  0 -1 0
+:\paper-space\localized-learning\main.tex
+TeX
+269496315 0 -1 0 -1 0 64 64 1390 475 0 1 45 0 -1 -1 0 0 -1 -1 -1 -1 1 0 0 -1  0 -1 0
+:\paper-space\dl-visual-debugger\main.tex
+TeX
+269496315 0 -1 4051 -1 3495 26 26 1390 498 0 1 1215 294 -1 -1 0 0 41 -1 -1 41 1 0 3495 -1  0 -1 0
+:\paper-space\kat\motivation.tex
+TeX
+1060859 0 -1 1731 -1 1507 104 104 952 425 0 1 889 168 -1 -1 0 0 16 -1 -1 16 1 0 1507 -1  0 0 0
+:\paper-space\dl-visual-debugger\rq2.tex
+TeX
+1060859 0 -1 3189 -1 3085 128 128 1454 514 0 1 215 252 -1 -1 0 0 62 -1 -1 62 1 0 3085 -1  0 -1 0
+:\paper-space\dl-visual-debugger\recommendation.tex
+TeX
+1060859 0 -1 4947 -1 4849 104 104 1003 325 0 1 915 231 -1 -1 0 0 44 0 0 44 1 0 4849 -1  0 -1 0
+:\paper-space\dl-visual-debugger\related-work.tex
+TeX
+1060859 0 -1 4223 -1 4222 0 0 874 301 0 1 85 420 -1 -1 0 0 46 -1 -1 46 1 0 4222 -1  0 -1 0
+:\paper-space\dl-visual-debugger\rq4.tex
+TeX
+1060859 0 -1 16753 -1 23577 64 64 1422 460 0 1 115 357 -1 -1 0 0 29 -1 -1 29 1 0 23577 -1  0 -1 0
+:\paper-space\dl-visual-debugger\rq3.tex
+TeX
+17838075 0 -1 1588 -1 1574 160 160 1486 546 0 1 165 252 -1 -1 0 0 59 -1 -1 59 1 0 1574 -1  0 -1 0
+:\paper-space\dl-visual-debugger\rq1.tex
+TeX
+1060859 0 -1 9144 -1 9182 96 96 1422 482 0 1 285 378 -1 -1 0 0 62 -1 -1 62 1 0 9182 -1  0 -1 0
+:\paper-space\dl-visual-debugger\evaluation.tex
+TeX
+1060859 0 -1 162 -1 572 32 32 1358 418 0 1 435 168 -1 -1 0 0 36 -1 -1 36 1 0 572 -1  0 -1 0
+:\paper-space\dl-visual-debugger\implementation.tex
+TeX
+1060859 0 -1 1145 -1 1067 64 64 1390 450 0 1 365 378 -1 -1 0 0 299 -1 -1 299 1 0 1067 -1  0 -1 0
+:\paper-space\dl-visual-debugger\conclusion.tex
+TeX
+1060859 0 -1 354 -1 699 130 130 1004 431 0 1 45 210 -1 -1 0 0 42 -1 -1 42 1 0 699 -1  0 -1 0
+:\paper-space\dl-visual-debugger\visualization.tex
+TeX
+1060859 1 -1 12952 -1 12945 78 78 977 299 1 1 465 252 -1 -1 0 0 1149 -1 -1 1149 1 0 12945 -1  0 -1 0
+:\paper-space\dl-visual-debugger\approach.tex
+TeX
+1060859 0 -1 714 -1 718 78 78 1468 548 1 1 815 252 -1 -1 0 0 38 -1 -1 38 1 0 718 -1  0 -1 0
+:\paper-space\dl-visual-debugger\intro.tex
+TeX
+1060859 0 -1 9164 -1 973 78 78 1442 550 1 1 1175 126 -1 -1 0 0 39 -1 -1 39 1 0 973 -1  0 -1 0
+:\paper-space\deepvisualinsight\motivating-example.tex
+TeX
+1060859 0 -1 1897 -1 2553 128 128 1486 503 0 1 313 391 -1 -1 0 0 28 -1 -1 28 1 0 2553 -1  0 -1 0
+:\paper-space\dl-visual-debugger\simulation.tex
+TeX
+269496315 0 -1 332 -1 412 32 32 1390 407 0 1 145 153 -1 -1 0 0 20 -1 -1 20 1 0 412 -1  0 -1 0
+:\paper-space\nn-cka\chapter\definition.tex
+TeX
+1060859 0 -1 0 -1 0 78 78 1442 568 0 1 41 0 -1 -1 0 0 49 -1 -1 49 1 0 0 -1  0 -1 0
+:\paper-space\dl-visual-debugger\experiment.tex
+TeX
+269496315 0 -1 0 -1 0 0 0 1326 386 0 1 41 0 -1 -1 0 0 49 -1 -1 49 1 0 0 -1  0 -1 0
+:\paper-space\dl-visual-debugger\feedback.tex
+TeX
+269496315 8 -1 42 -1 0 0 0 899 221 0 1 41 0 -1 -1 0 0 42 -1 -1 42 1 0 0 -1  0 -1 0
+:\paper-space\evoobj-jrnl\evoobj-main-acm.tex
+TeX:UTF-8
+17838075 0 -1 459 -1 726 182 182 1546 654 0 1 385 238 -1 -1 0 0 38 -1 -1 38 1 0 726 -1  0 -1 0
+:\paper-space\dl-visual-debugger\motivating-example.tex
+TeX
+269496315 0 -1 0 -1 0 156 156 1520 628 0 1 41 0 -1 -1 0 0 59 -1 -1 59 1 0 0 -1  0 -1 0
+:\paper-space\dl-visual-debugger\bugs.tex
+TeX
+269496315 0 -1 0 -1 0 0 0 1390 470 0 1 41 0 -1 -1 0 0 43 -1 -1 43 1 0 0 -1  0 -1 0
+:\paper-space\nn-cka\package.tex
+TeX
+269496315 1 -1 618 -1 398 156 156 1520 646 0 1 41 221 -1 -1 0 0 17 -1 -1 17 1 0 398 -1  0 0 0
+:\paper-space\dl-visual-debugger\main.bbl
+TeX:AUX
+269496306 0 31 1 31 52 104 104 977 423 0 0 433 221 -1 -1 0 0 56 0 0 56 1 0 52 31  0 0 0
+:\paper-space\dl-visual-debugger\icse23.bib
+BibTeX
+1049586 1 66 36 66 16 52 52 1416 524 0 1 161 272 -1 -1 0 0 42 259 259 42 1 0 16 66  0 -1 0
+:\paper-space\kat\main.tex
+TeX
+269496315 0 -1 0 -1 0 0 0 874 301 0 1 41 0 -1 -1 0 0 -1 -1 -1 -1 1 0 0 -1  0 -1 0
+:\paper-space\nn-cka\conference_101719.tex
+TeX
+269496315 0 -1 0 -1 343 130 130 1494 620 0 1 265 153 -1 -1 0 0 -1 -1 -1 -1 1 0 343 -1  0 -1 0
+:\paper-space\nn-cka\chapter\modularization.tex
+TeX
+269496315 1 -1 2870 -1 5237 104 104 1468 594 0 1 161 629 -1 -1 0 0 -1 -1 -1 -1 1 0 5237 -1  0 -1 0
+:\paper-space\nn-cka\chapter\framework.tex
+TeX
+269496315 0 -1 0 -1 0 52 52 1416 542 0 1 41 0 -1 -1 0 0 -1 -1 -1 -1 1 0 0 -1  0 -1 0
+:\paper-space\auto-driving-testing\auto-driving-testing-main.tex
+TeX
+269496315 0 -1 1722 -1 1389 0 0 864 319 1 1 633 459 -1 -1 0 0 41 -1 -1 41 1 0 1389 -1  0 -1 0
+:\paper-space\auto-driving-testing\approach.tex
+TeX
+1060859 0 -1 457 -1 466 52 52 916 371 1 1 329 323 -1 -1 0 0 18 -1 -1 18 1 0 466 -1  0 -1 0
+:\paper-space\auto-driving-testing\introduction.tex
+TeX
+1060859 1 -1 0 -1 22 130 130 994 449 0 1 217 0 -1 -1 0 0 23 -1 -1 23 1 0 22 -1  0 -1 0
+:\paper-space\auto-driving-testing\background.tex
+TeX
+1060859 0 -1 10 -1 21 0 0 864 319 1 1 257 0 -1 -1 0 0 21 -1 -1 21 1 0 21 -1  0 -1 0
+:\paper-space\auto-driving-testing\motivating-example.tex
+TeX
+1060859 0 -1 10 -1 27 26 26 890 345 0 1 257 0 -1 -1 0 0 29 -1 -1 29 1 0 27 -1  0 -1 0
+:\paper-space\auto-driving-testing\experiment.tex
+TeX
+1060859 0 74 23 -1 1511 78 78 942 397 0 1 41 306 -1 -1 0 0 22 0 0 22 1 0 1511 -1  0 -1 0
+:\paper-space\auto-driving-testing\related-work.tex
+TeX
+1060859 0 -1 10 -1 21 104 104 968 423 0 1 209 0 -1 -1 0 0 23 -1 -1 23 1 0 21 -1  0 -1 0
+:\paper-space\auto-driving-testing\conclusion.tex
+TeX
+1060859 0 -1 10 -1 19 130 130 994 449 0 1 193 0 -1 -1 0 0 21 -1 -1 21 1 0 19 -1  0 -1 0
+:\paper-space\auto-driving-testing\package.tex
+TeX
+1060859 0 -1 308 -1 308 0 0 864 319 0 1 41 187 -1 -1 0 0 17 -1 -1 17 1 0 308 -1  0 0 0
+:\paper-space\auto-driving-testing\IEEEexample.bib
+BibTeX
+1049586 1 19 32 19 16 26 26 925 285 0 1 161 323 -1 -1 0 0 1 0 0 1 1 0 16 19  0 -1 0
+:\paper-space\auto-driving-testing\IEEEabrv.bib
+BibTeX
+1049586 0 0 1 381 50 0 0 899 259 0 1 433 680 -1 -1 0 0 1 0 0 1 1 0 50 381  0 0 0
+
+*main.tex
+>
+*src/00-abstract.tex
+*src/01-introduction.tex
+*src/02-related work.tex
+*src/03-background and motivation.tex
+*src/04-overview.tex
+*src/05-system.tex
+*src/06-experiment_evaluation.tex
+*src/07-discussion and conclusion.tex
+*main
+*src/08-Appendix
+<
