@@ -33,7 +33,7 @@ which can generally fall into rule-based approaches \cite{milajerdi2019holmes,mi
 The rule-based solutions are usually commercial products \cite{milajerdi2019holmes,milajerdi2019poirot,hossain2020combating} such as SIEM (Security Information and Event Management) and \linyun{YYY} detect APT attacks via predefined security rules.
 While the rules can be useful in a way,
 they can be either too strict so that they miss reporting true positives or
-too general so that a large number of false alarms exhaustively costly to validate,
+too general so that a large number of false alarms are exhaustively costly to validate,
 undermining users' confidence in the tools.
 
 \noindent\textbf{Learning-based Approaches.}
@@ -50,22 +50,22 @@ they still suffer from the following insufficiencies.
 
 \begin{itemize}[leftmargin=*]
   \item \textbf{Explainability:}
-    While the attack can be predicted in a supervised-learning or unsupervised-learning solution,
+    While the attack can be learned and predicted in a data-driven way,
     the numeric representation is not straightforward for a security engineer to 
     validate the potential false alarm.
-    Therefore, the security engineers still need to pay non-trivial efforts to 
+    With a reported alarm, they still need to pay non-trivial efforts to 
     track the event causality from the system logs.
     Any false alarm can undermine users' trust in the solution.
   \item \textbf{The Quality of Training Dataset:}
     It is non-trivial to label high-quality training dataset in such a security application.
     More often than not, the attack logs are the minority, which introduces inherent data imbalance problem.
-    As a result, it is non-trivial to fill the gap between the experimental and the practical performance.
+    As a result, the performance gap between the experiment and the practice the learned model can be huge.
     %Thus, it is unclear whether the performance of the trained model can be well generalized in practice.
   \item \textbf{Evolving Attacks:}
     Finally, the learned models can be dependent on the training dataset of attack logs.
-    In the cat-and-rat game of APT security,
+    In the cat-and-rat game of APT attack security,
     novel attacks can always emerge, 
-    leaving both the training dataset and its derived model obsolete.
+    leaving both the training dataset and its derived model obsoleted.
 \end{itemize}
 
 
@@ -82,17 +82,18 @@ In this regard,
 \tool considers the trojan-induced intrusion detection problem as a problem of
 detecting a ``lie'' in the runtime system.
 \tool is designed as a counter-factual solution to find such inconsistency,
-which consists of two steps, i.e., 
-(1) behavioral reference construction and
-(2) runtime behavioral validation.
+which consists of 
+behavioral reference construction and
+runtime behavioral validation.
 
 \noindent\textbf{Behavioral Reference Construction.}
 Given a claimed system process, \tool constructs the behavioral reference in the form of 
-verifiable logical proposition describing either
+verifiable logical proposition as its behaviorial profile.
+The profile describes either
 (1) the fact which the process has to meet (e.g., the process with name \textit{svchost.exe} must be launched by \textit{\linyun{process-name.exe}} at the location \textit{C://system//service.exe}), or
 (2) the temporal relation between two events 
 (e.g., the event that \textit{svchost.exe} reads \linyun{\textit{read XX.dll}} must happen before the event \textit{svchost.exe} writes \linyun{\textit{read XX.dll}}).
-\tool extracts composition proposition regarding both disjunction and conjunction
+\tool extracts composition proposition regarding both disjunction and conjunction relationship
 to represent the behaviorial invariants of a system process.
 
 \noindent\textbf{Runtime Behavioral Validation.}
@@ -112,9 +113,8 @@ we adopt in-context learning solution to guide LLM to
 introduce the runtime knowledge of a system process in a \textit{verifiable} way.
 On the other hand,
 we validate the knowledge by running the process in a sandbox.
-For the verified knowledge,
-we extract the fact and the temporal relation among the events
-as logical propositions.
+Then, we extract the fact and the temporal relation among the events from the executed system logs
+in the form as logical propositions.
 
 
 We evaluate \tool with extensive experiments by building a Caldera-based benchmark,
@@ -132,7 +132,7 @@ Further, our wild study shows that \tool can detect \linyun{??} trojan-based att
 In summary, we make the following contributions:
 \begin{itemize}[leftmargin=*]
   \item We propose an explainable intrusion detection technique \tool to report both the alarm and its explanation in a unified way. 
-      To the best of our knowledge, we are the first to detect intrusion against constructed behaviorial profile of system process.
+      To the best of our knowledge, we are the first to detect intrusion against constructed behaviorial profile of system processes.
   \item We deliver \tool which can 
     (1) construct the behaviorial invariant of a given process by enforcing LLM to output trustworthy and verifiable propositions and
     (2) validate an arbitrary system process against the constructed profile.
