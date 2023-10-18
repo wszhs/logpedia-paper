@@ -3,34 +3,34 @@
 %-------------------------------------------------------------------------------
 Advanced Persistent Threat (APT) attacks have long been a pressing concern
 in many critical sectors such as banking and government.
-Trojan programs, the malware disguising normal system process,
+Trojan programs, the malware disguising normal system processes,
 play an important role in the post-intrusion stage of APT attacks.
 Researchers are fighting an uphill battle against APT attacks
 owing to their stealthy nature and prolonged presence.
-The state-of-the-art detection approaches are usually machine learning driven solutions on collected system logs,
+The state-of-the-art detection approaches are usually machine learning-driven solutions on collected system logs,
 e.g., learning graph embedding on the constructed provenance graphs.
 However, given their statistical and probabilistic nature,
 their reported false alarms are usually prohibitively expensive to validate.
 
 In this work, we propose \tool,
 a trojan-oriented explainable intrusion detection technique,
-to report disguising trojans in APT attack.
+to report disguising trojans in APT attacks.
 \tool considers the trojan-induced intrusion detection problem as a problem of
 detecting a ``lie'' in the runtime system.
 %Thus, we address the problem in a counter-factual manner.
 Thus, we raise intrusion alarm based on the inconsistency between
-the behaviors of a target program (e.g., scanning the ports) and
-its claimed process intention (e.g., \textit{svchost.exe}).
-On one hand, we construct the normal behaviorial profile of a system process by extracting
+the behaviors of a target program and
+its claimed process intention.
+On one hand, we construct the normal behavioral profile of a system process by extracting
 its verifiable logical formula from LLMs,
-representing its behaviorial invariants.
+representing its behavioral invariants.
 On the other hand, we extract the runtime behavior of plausible system processes
 from the system logs.
-The violation of process from its normality (i.e., behaviorial invariants) serves as both the explanation and alarm.
-Our extensive experiment on \linyun{XX} systems shows that 
+The violation of process from its normality (i.e., behavioral invariants) serves as both the explanation and alarm.
+Our extensive experiment shows that 
 \tool is effective in reporting trojan-based APT attack (with the precision of 96.25\% and the recall of 90.15\%),
-at the cost of minimum runtime overhead (of on average \linyun{3s}).
-Further, our wild study shows that \tool can detect \linyun{??} trojan-based attacks on \linyun{??} systems.
+at the cost of minimum runtime overhead (of on average 2.3s).
+
 
 
 %% YD: I comment out the following sentences.

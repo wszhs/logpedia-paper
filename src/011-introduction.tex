@@ -3,27 +3,25 @@
 %-------------------------------------------------------------------------------
 Advanced Persistent Threats (APTs) have long known as a formidable adversary in the cyber landscape,
 regarding their stealthy and persistent nature, 
-as well as exceptionally damaging consequence \cite{xx, xx, xx, xx, xx}.
+as well as exceptionally damaging consequence \cite{aptsplunk2023, aptsingtel2023, aptpicus2023, aptstonefly2023, apttechtarget2023}.
 After achieving unauthorized access, 
 the attackers can deploy their malware on the server to 
-gather information and credentials of the victim \cite{xx, xx},
-spread their influence across the local network \cite{xx, xx}, and
-maintain remote access to control the compromised servers \cite{xx, xx}.
+gather information and credentials of the victim \cite{microsoftcredentials2023, crowdstrikecredentials2022},
+spread their influence across the local network \cite{crowdstrikelateralmovement2023, sentinelonelateralmovement2023}, and
+maintain remote access to control the compromised servers \cite{mandiantpersistence2022, dfirpersistence2022}.
 
 As one of the most important toolkits in attackers' arsenal,
-trojans, a type of malware often disguising as a legitimate software,  
+trojans, a type of malware often disguised as a legitimate software,  
 are often used in APT attacks.
 The malware allows the attackers to 
 be evasive from user screening and
 exploit the compromised system for a longer time.
-exploit the compromised system for a longer time.
-For example in \linyun{DARPA DC} dataset, 
+For example in public APT reports, 
 a trojan can disguise itself as a system process \textit{svchost.exe} (see Section~\ref{sec:motivation} for more details)
-to increase its plausibility and avoid the detection,
-which lasts for \linyun{XX} years.
-Further, the MITRE ATT\&CK Framework reports \linyun{???\%} of the trojan-relevant attacks.
+to increase its plausibility and avoid detection.
+Further, the Global Threat Report of Elastic \cite{elasticreport2022} shows 81\% of the trojan-relevant attacks.
 A growing number of evidence shows that trojan-based APT attack is 
-pervasive \cite{valeros2020growth, xx}. 
+pervasive \cite{valeros2020growth, mitre_g0016}. 
 
 
 As countermeasures, industrial and academic solutions \cite{karantzas2021empirical, cheng2023kairos,alsaheel2021atlas,han2020unicorn,inam2022sok,han2021sigl} are emerging to
@@ -31,7 +29,7 @@ report the post-intrusion behaviors based on the collected system logs,
 which can generally fall into rule-based approaches \cite{milajerdi2019holmes,milajerdi2019poirot,hossain2020combating} and learning-based approaches \cite{liu2018towards,hassan2019nodoze,hassan2020we, wang2022threatrace,han2020unicorn,wang2020you}. 
 
 \noindent\textbf{Rule-based Approaches.}
-The rule-based solutions are usually commercial products \cite{milajerdi2019holmes,milajerdi2019poirot,hossain2020combating} such as SIEM (Security Information and Event Management) and \linyun{YYY} detect APT attacks via predefined security rules.
+The rule-based solutions are usually commercial products \cite{milajerdi2019holmes,milajerdi2019poirot,hossain2020combating} such as SIEM (Security Information and Event Management) and EDR (Endpoint Detection and Resopnse) detect APT attacks via predefined security rules.
 While the rules can be useful in a way,
 they can be either too strict so that they miss reporting true positives or
 too general so that a large number of false alarms are exhaustively costly to validate,
@@ -39,14 +37,14 @@ undermining users' confidence in the tools.
 
 \noindent\textbf{Learning-based Approaches.}
 Many researchers consider the problem of intrusion detection as a supervised-learning problem \cite{liu2018towards,hassan2019nodoze,hassan2020we} or an unsupervised-learning problem \cite{wang2022threatrace,han2020unicorn,wang2020you}.
-Therefore, different representations \cite{zeng2021watson, zengy2022shadewatcher} (including graph embedding, context-aware information flow) are extracted and learned from the system logs.
-If the logs or its representation (nodes on the log-derived provenance graph) can be attached with labels (malicious or not),
-we can learn a classification model to predict the attacks \cite{xxx}.
-Otherwise, we define and learn the normality on the log representation (e.g., graph \cite{manzoor2016fast,han2020unicorn,li2021hierarchical,yang2023prographer,cheng2023kairos}, path \cite{wang2020you,alsaheel2021atlas}, text sequence), and detect the attacks (or the anomaly) by
+Therefore, different representations \cite{zeng2021watson, zengy2022shadewatcher} (including graph embedding, and context-aware information flow) are extracted and learned from the system logs.
+If the logs or their representation (nodes on the log-derived provenance graph) can be attached with labels (malicious or not),
+we can learn a classification model to predict the attacks \cite{wang2022threatrace,han2020unicorn,wang2020you}.
+Otherwise, we define and learn the normality on the log representation (e.g., graph \cite{manzoor2016fast,han2020unicorn,li2021hierarchical,yang2023prographer,cheng2023kairos}, path \cite{wang2020you,alsaheel2021atlas}, and text sequence), and detect the attacks (or the anomaly) by
 defining a distance in the representation space.
 
 While the learning-based approaches can leverage 
-the AI-powered infrastructure (e.g., Graph Neural Network \cite{xx}, BERT \cite{xx}) from the machine learning community,
+the AI-powered infrastructure (e.g., Graph Neural Network \cite{zhou2020graph,wu2020comprehensive}, BERT \cite{tenney2019bert}) from the machine learning community,
 they still suffer from the following insufficiencies.
 
 \begin{itemize}[leftmargin=*]
@@ -54,13 +52,13 @@ they still suffer from the following insufficiencies.
     While the attack can be learned and predicted in a data-driven way,
     the numeric representation is not straightforward for a security engineer to 
     validate the potential false alarm.
-    With a reported alarm, they still need to pay non-trivial efforts to 
+    With a reported alarm, they still need to make non-trivial efforts to 
     track the event causality from the system logs.
     Any false alarm can undermine users' trust in the solution.
   \item \textbf{The Quality of Training Dataset:}
     It is non-trivial to label high-quality training dataset in such a security application.
-    More often than not, the attack logs are the minority, which introduces inherent data imbalance problem.
-    As a result, the performance gap between the experiment and the practice the learned model can be huge.
+    More often than not, the attack logs are the minority, which introduces an inherent data imbalance problem.
+    As a result, the performance gap between the experiment and the practice of the learned model can be huge.
     %Thus, it is unclear whether the performance of the trained model can be well generalized in practice.
   \item \textbf{Evolving Attacks:}
     Finally, the learned models can be dependent on the training dataset of attack logs.
@@ -91,10 +89,10 @@ runtime behavioral validation.
 Given a claimed system process, \tool constructs the behavioral reference in the form of 
 verifiable logical proposition as its behavioral profile.
 The profile describes either
-(1) the fact which the process has to meet (e.g., the process with name \textit{svchost.exe} must be launched by \textit{\linyun{process-name.exe}} at the location \textit{C://system//service.exe}), or
+(1) the fact which the process has to meet (e.g., the process with the name \textit{svchost.exe} must be launched by \textit{services.exe} at the location \textit{C:/windows/system32}), or
 (2) the temporal relation between two events 
-(e.g., the event that \textit{svchost.exe} reads \linyun{\textit{read XX.dll}} must happen before the event \textit{svchost.exe} writes \linyun{\textit{read XX.dll}}).
-\tool extracts composition proposition regarding both disjunction and conjunction relationship
+(e.g., the event that \textit{svchost.exe} loads \textit{msvcrt.dll} must happen before the event \textit{svchost.exe} loads \textit{advapi32.dll}).
+\tool extracts composition proposition regarding both disjunction and conjunction relationships
 to represent the behavioral invariants of a system process.
 
 \noindent\textbf{Runtime Behavioral Validation.}
@@ -108,37 +106,36 @@ If yes, the violation (i.e., inconsistency) is raised as both the alarm and its 
 
 
 To construct the behavioral reference, 
-we design a cross-validation technique to extract verifiable knowledge from LLM (Large Language Model) such as ChatGPT.
+we design a cross-validation technique to extract verifiable knowledge from LLMs (Large Language Models) such as ChatGPT.
 On one hand, 
-we adopt in-context learning solution to guide LLM to 
+we adopt an in-context learning solution to guide LLMs to 
 introduce the runtime knowledge of a system process in a \textit{verifiable} way.
 On the other hand,
 we validate the knowledge by running the process in a sandbox.
-Then, we extract the fact and the temporal relation among the events from the executed system logs
-in the form as logical propositions.
+Then, we extract the facts and the temporal relation among the events from the executed system logs
+in the form of logical propositions.
 
 
-We evaluate \tool with extensive experiments by building a Caldera-based benchmark,
+We evaluate \tool with extensive experiments by building a Caldera\cite{caldera} and C++ based benchmark,
 simulating 10 trojan-induced APT attack scenarios including 
-4 prevalent stealth techniques \cite{xx}, 
-23 malicious functionalities \cite{xx}, and 
-4 prevalent stealth techniques \cite{xx}.
-In the experiment, \tool generates the behavioral profile of \linyun{100} system processes
+4 prevalent stealth techniques, 
+and 23 malicious functionalities.
+In the experiment, \tool generates the behavioral profile of 70 system processes
 at the cost of \$3.5 per profile.
 Our experiments show that 
-\tool is effective in reporting trojan-based APT attack comparing to the state-of-the-art solutions (with the precision of \linyun{100\%} and the recall of \linyun{??\%}),
-at the cost of minimum runtime overhead (of on average \linyun{3s}).
-Further, our wild study shows that \tool can detect \linyun{??} trojan-based attacks on \linyun{??} systems.
+\tool is effective in reporting trojan-based APT attacks compared to the state-of-the-art solutions (with a precision of 96.25\% and a recall of 90.15\%),
+at the cost of minimum runtime overhead (of on average 2.3s).
+% Further, our wild study shows that \tool can detect 9 out of 11 trojan-based attacks on windows systems.
 
 In summary, we make the following contributions:
 \begin{itemize}[leftmargin=*]
   \item We propose an explainable intrusion detection technique \tool to report both the alarm and its explanation in a unified way. 
-      To the best of our knowledge, we are the first to detect intrusion against constructed behavioral profile of system processes.
+      To the best of our knowledge, we are the first to detect intrusion against constructed behavioral profiles of system processes.
   \item We deliver \tool which can 
     (1) construct the behavioral invariant of a given process by enforcing LLM to output trustworthy and verifiable propositions and
     (2) validate an arbitrary system process against the constructed profile.
-  \item We deliver our Caldera-based benchmark, which simulates 10 trojan-induced attacks. 
+  \item We deliver our Caldera and C++ based benchmark, which simulates 10 trojan-induced attacks. 
     The benchmark is extensible for introducing more attacks.
-  \item We conduct extensive experiment to evaluate \tool, showing its performance regarding high precision in both the detection results and the generated explanation.
+  \item We conduct extensive experiments to evaluate \tool, showing its performance regarding high precision in both the detection results and the generated explanation.
 \end{itemize}
  

@@ -1,22 +1,56 @@
 \section{Experiment Evaluation}
 
-In order to validate the effectiveness of our approach, we simulated 4 stealthy techniques, 23 malicious functions attacks on 100 critical system processes and ten APT attack scenarios:
+In order to validate the effectiveness of our approach, we conducted a series of simulations. Four common trojan stealth techniques were replicated. We also simulated 23 malicious function attacks frequently used by Trojan programs, targeting 70 critical system processes. Additionally, ten Trojan-based APT attack scenarios were also executed as part of our comprehensive evaluation.
 
 \begin{itemize}
-    \item \textbf{Q1.} How well does our method work, and does it achieve a low false-positive rate and false-negative rate? ((§~\ref{sec-effective})
+    \item \textbf{Q1.} How well does our method work, and does it achieve a low false-positive rate and low false-negative rate? (§~\ref{sec-effective})
     \item \textbf{Q2.} What is the time it takes for our method to construct a profile for each process? What is the most time-consuming step in the three-step process profile creation? (§~\ref{sec-eff})
     \item \textbf{Q3.} How does the behavior diverge based on LLM, and how does the validation step optimize the outcome? (§~\ref{sec-ab-study})
     \item \textbf{Q4.} How can we validate the accuracy of these explanations using our method? (§~\ref{sec-explanation-val})
     \item \textbf{Q5.} Is it common for real-world APT attacks to disguise their processes in various ways? (§~\ref{sec-real-world})
 \end{itemize}
-All experiments are performed on a server with AMD EPYC 7543P 32-Core Processor, 256 GB physical memory. The OS is Microsoft Windows 10 (64-bit).
-We implemented our system by calling OpenAI's GPT-4 API with a temperature setting of 0.5.
-We develop \tool in 3.53K lines of C++ code and 10K lines of Python code.
-The C++ code in the project is utilized for the generation of malicious attacks, while the Python code is employed for data preprocessing, building process profiles, and threat detection.
 
 
 \subsection{Implementation}
-We present important technical details in the implementation.
+All experiments are performed on a server with AMD EPYC 7543P 32-Core Processor, 256 GB physical memory. The OS is Microsoft Windows 10 (64-bit).
+We implemented our system by calling OpenAI's GPT-4 API with a temperature setting of 0.5.
+We developed \tool in 3.53K lines of C++ code and 10K lines of Python code.
+
+\paragraph{System Auditing Collection.}
+Although \tool can handle input from Linux and Windows systems, our evaluation focuses primarily on Windows events. Because most of our benign deployment environment consists of Windows-based hosts, and sophisticated malware is mostly designed for Windows platforms.
+We use \textit{Sysmon}, Windows's log collection tool, to collect provenance data from these systems.
+
+\subsubsection{Attack Datasets}
+
+To address the challenges, we approached the problem from three distinct angles: expanding coverage of malicious functionalities and the ATT\&CK framework, employing trojan stealth techniques, and simulating Trojan-based APT attacks.
+
+We executed Trojan-based APT attack simulations in three steps:
+\begin{itemize}
+    \item \textbf{Enhancing Malicious Functionalities}: In order to simulate a wider range of malicious function attacks frequently used by Trojan programs, we handcrafted 23 malicious functions in C++ and \textit{Caldera}\cite{caldera}, including BypassUAC, File Scan, File Monitor, Compression, Keyboard Monitor, and Privilege Escalation. In addition, we implemented 9 different TTP attacks using well-known hacker utilities. 
+    \item \textbf{Employing Stealth Techniques}: We incorporated Four common trojan stealth techniques: Process Masquerade, Process Hollow, Process Injection, and DLL Side-Loading. By combining these stealthy techniques with the 23 malicious functionalities, we created a variety of attack variants. 
+    \item \textbf{Simulating Real-world APTs}: In order to enhance the authenticity of our simulations, we developed ten Trojan-based APT attack scenarios based on an analysis of real-world trojan-based APT activities. We crafted ten simulated APT attack narratives using the four stealth techniques from the second step and the 23 malicious functionalities from the first step.
+\end{itemize}
+
+
+\noindent
+{\bf Real-world datasets.} Using real-world Trojan-based APT datasets, we aimed to validate the frequency of masquerade techniques such as name masquerading in authentic APT attacks; to this end, we collected publicly available APT attack simulation datasets alongside malware samples like GALLIUM\cite{cybereason2023}, DCSrv\cite{checkpoint2021},  which are known to employ techniques like name masquerading and process injection;  APT29 poses as \textit{python.exe}, \textit{rar.exe}, and \textit{accesschk.exe}; furthermore, they utilize DLL Side-Loading, specifically by loading a malicious \textit{mso.dll} file, with comprehensive details showcased in Table~\ref{tab:real_world}.
+
+\noindent
+{\bf Label.}
+By using our knowledge of attack workflow, we manually label the ground truth of interactions through their relation to attacks, as we are aware of how attacks are executed.
+
+
+\subsubsection{Normal Datasets}
+To validate the false positive rate of our methodology, a publicly available benign dataset \cite{evtx-baseline2022} is used in this analysis. This dataset encompasses logs generated from routine user activities across various Windows operating systems, including Windows 7, Windows 10, and Windows 11. The logs from this dataset cover 13/47/52 processes for different systems that we used to construct process profiles.
+
+\subsubsection{Process Classification}
+We carefully selected 70 important processes based on various criteria: 1) Essential system processes; 2) Processes closely related to security mechanisms; and 3) Processes often used by system administrators. 
+
+The two most common camouflaged processes are \textit{svchost.exe} and \textit{rundll32.exe}:
+\begin{itemize}
+    \item \textit{Svchost.exe} processes. \textit{svchost.exe} is a Windows system utility that runs multiple services from dynamic link libraries (\textit{dll} files). Trojan malware can easily masquerade as \textit{svchost.exe} \cite{svchost2023}.
+    \item \textit{Rundll32.exe} processes. \textit{rundll32.exe} loads specific functions from \textit{dll} files. Unlike \textit{svchost.exe}, it's more vulnerable, as attackers can create their own \textit{dll} for it. Due to its exploitability, \textit{rundll32.exe} is a prime target for trojan impersonation. 
+\end{itemize}
 
 
 \subsection{Effectiveness}
@@ -60,29 +94,30 @@ We present important technical details in the implementation.
 
   \begin{subfigure}{.99\textwidth}
       \includegraphics[width=\textwidth]{figs/svchost.pdf}
-      \caption{Svchost Constraints}
+      \caption{Svchost Behavioral Invariants}
       \label{fig:svc-cons}
   \end{subfigure}
   \hfill
-  -\vspace{0.9cm}
+  \vspace{0.9cm}
   \begin{subfigure}{.99\textwidth}
       \includegraphics[width=\textwidth]{figs/lsass.pdf}
-      \caption{Lsass Constraints}
+      \caption{Lsass Behavioral Invariants}
       \label{fig:lsass-cons}
   \end{subfigure}
-\caption{Constraints}
+  \vspace{-0.9cm}
+\caption{Behavioral Invariants}
 \label{fig-fdh}
 \end{minipage}
 \end{figure*}
 
 \subsubsection{Evaluation on Attack for Various Processes}
-
-We launched attacks on 100 system processes using 4 stealthy techniques, targeting 23 malicious functionalities. Due to space constraints, we show 10 typical malicious functions.
-As illustrated in the Table~\ref{table:eva-attack}, based on the 40 attacks we synthesized, our method detected 66 out of 70 processes in the worst-case scenario, thus achieving a very low false negative rate.
+We launched attacks on 70 system processes using 4 stealthy techniques, targeting 23 malicious functionalities. Due to space constraints, we show 10 typical malicious functions.
+As illustrated in Table~\ref{table:eva-attack}, based on the 40 attacks we synthesized, our method detected 66 out of 70 processes in the worst-case scenario, thus achieving a very low false negative rate.
 However, some errors still persist, which we intend to delve into further.
 
 \begin{table*}[h!]
     \centering
+    \scalebox{0.85}{
     \begin{tabularx}{\textwidth}{|X|X|X|X|X|X|X|X|X|X|X|}
         \hline
         & \textbf{BU} & \textbf{C} & \textbf{FM} & \textbf{FS} & \textbf{ST} & \textbf{PE} & \textbf{KM} & \textbf{FA} & \textbf{SE} & \textbf{E} \\
@@ -92,67 +127,63 @@ However, some errors still persist, which we intend to delve into further.
 \multicolumn{1}{|l|}{\textbf{PI}} & \multicolumn{1}{l|}{66/70}   & \multicolumn{1}{l|}{65/70}  & \multicolumn{1}{l|}{67/70}   & \multicolumn{1}{l|}{69/70}   & \multicolumn{1}{l|}{67/70}   & \multicolumn{1}{l|}{68/70}   & \multicolumn{1}{l|}{69/70}   & \multicolumn{1}{l|}{67/70}   & \multicolumn{1}{l|}{67/70}   & \multicolumn{1}{l|}{68/70}  \\ \hline
 \textbf{DLL}                      & 69/70                        & 68/70                       & 67/70                        & 67/70                        & 69/70                        & 66/70                        & 67/70                        & 67/70                        & 68/70                        & 66/70                       \\ 
         \hline
-    \end{tabularx}
-    \caption{Detection of Process Count for Various Techniques and Malicious Activities.}
-    \smallskip
-    \small \textit{Abbreviations: BU - BypassUAC, C - Compression, FM - File Monitor, FS - File Scan, ST - Scheduled Task, PE - Privilege Escalation, KM - Keyboard Monitor, FA - Forced Authentication, SE - Service Execution, E - Exfiltration, PM - Process Masquerade, PH - Process Hollow, PI - Process Injection, DLL - DLL Side-Loading}
+    \end{tabularx}}
+    % \caption{Detection of Process Count for Various Techniques and Malicious Activities}
+    \caption{Detection of Process Count for Various Techniques and Malicious Activities, where BU is short for BypassUAC, C for Compression, FM for File Monitor, FS for File Scan, ST for Scheduled Task, PE for Privilege Escalation, KM for Keyboard Monitor, FA for Forced Authentication, SE for Service Execution, E for Exfiltration, PM for Process Masquerade, PH for Process Hollow, PI for Process Injection, and DLL for DLL Side-Loading.}
+    % \smallskip
+    % \small \textit{Abbreviations: BU - BypassUAC, C - Compression, FM - File Monitor, FS - File Scan, ST - Scheduled Task, PE - Privilege Escalation, KM - Keyboard Monitor, FA - Forced Authentication, SE - Service Execution, E - Exfiltration, PM - Process Masquerade, PH - Process Hollow, PI - Process Injection, DLL - DLL Side-Loading}
     \label{table:eva-attack}
 \end{table*}
-\smallskip
-\noindent
-{\bf Analysis of False Negatives.}
+
+% \smallskip
+% \noindent
+\paragraph{Analysis of False Negatives.}
 We discovered two primary reasons for these errors after thoroughly examining the incorrect cases:
-\begin{itemize}
-    \item \textbf{Insufficient Knowledge for Certain Processes}:  The internal knowledge of the LLMs is limited for some processes. Consider the process \textit{amdfendrsr.exe}, which is a core system process associated with AMD Crash Defender Service. But the existing knowledge base lacks comprehensive details on this process. Consequently, the constructed profile results in weak constraints, which render the model incapable of detecting attacks that violate the \textit{amdfendrsr.exe} process constraints.
-    \item \textbf{Some stealthy attack does not violate any constraints}: There are some stealthy attacks that do not violate any established constraints. For example, it is possible to inject a DLL into a process that cannot load it natively. A \textit{lsasrv.dll} would not be loaded naturally by \textit{svchost.exe} if a malicious DLL named \textit{lsasrv.dll} was injected into it, so no DLL constraints would be validated. Another example is that some \textit{rundll32.exe} attack operates within its legitimate bounds. for instance, Live-off-the-land\cite{barr2021survivalism} attacks leverage the normal functionality of legitimate programs for malicious purposes.
-\end{itemize}
+
+
+\textit{Insufficient Knowledge for Certain Processes}:  The internal knowledge of the LLMs is limited for some processes. Consider the process \textit{amdfendrsr.exe}, which is a core system process associated with AMD Crash Defender Service. However existing knowledge base lacks comprehensive details on this process. Consequently, the constructed profile results in weak Behavioral Invariants, which render the model incapable of detecting attacks that violate the \textit{amdfendrsr.exe} process Behavioral Invariants.
+
+\textit{Some stealthy attack does not violate any Behavioral Invariants}: There are some stealthy attacks that do not violate any established Behavioral Invariants. For example, it is possible to inject a DLL into a process that cannot load it natively. A \textit{lsasrv.dll} would not be loaded naturally by \textit{svchost.exe} if a malicious DLL named \textit{lsasrv.dll} was injected into it, so no DLL constraints would be validated. Another example is that some \textit{rundll32.exe} attacks operate within their legitimate bounds. For instance, Live-off-the-land\cite{barr2021survivalism} attacks leverage the normal functionality of legitimate programs for malicious purposes.
+
+
+
 
 \subsubsection{Evaluation on Normal Workloads}
-As previously mentioned, the GitHub project \cite{evtx-baseline2022} provides logs for different Windows versions specifically Windows 7, Windows 10, and Windows 11. 
-These logs were collected from various users performing an array of routine operations. We utilized these logs to assess the false positive rate (i.e., false alarms) of our method in these scenarios.
-
-In the Windows 7 scenario, our investigation encompassed 13 processes from our list, which manifested in 159 distinct entities due to multiple entities associated with a single process name. For Windows 10, we analyzed 47 processes (564 entities), and for Windows 11, we focused on 52 processes (1137 entities).
-As illustrated in the Figure~\ref{fig-eva-normal}, in the Windows 10 system, our method had 1 false positives out of 47 processes in our list. In Windows 11, there were 3 false positives out of 52 processes, and in Windows 7, the performance was the poorest with 2 false positives out of 13 processes.
+As previously mentioned, the GitHub project \cite{evtx-baseline2022} provides logs for different Windows versions specifically Windows 7, Windows 10, and Windows 11. We utilized these logs to assess the false positive rate (i.e., false alarms) of our method in these scenarios.
+As illustrated in Figure~\ref{fig-eva-normal}, in the Windows 10 system, our method had 1 false positive out of 47 processes in our list. In Windows 11, there were 3 false positives out of 52 processes, and in Windows 7, the performance was the poorest with 2 false positives out of 13 processes.
 
 \begin{figure}[h]
     \centering
-      \includegraphics[width=0.49\textwidth]{figs/normal_chart.pdf}
+      \includegraphics[width=0.45\textwidth]{figs/normal_chart.pdf}
     \caption{Evaluation on Normal Workloads.}
     \label{fig-eva-normal}
 \end{figure}
 
 \smallskip
-\noindent {\bf Analysis of False Positives.}
+\paragraph{Analysis of False Positives.}
 After a detailed analysis of the various causes of false positives, we identified the following key issues:
 
-\begin{itemize}
-    \item \textbf{Uniformity in LLM's Results:} The LLMs system tends to offer overly single results. For instance, the parent processes of \textit{C:/Windows/explorer.exe} can vary widely, including options like \textit{C:/Windows/explorer.exe} itself and \textit{C:/Windows/System32/userinit.exe}. However, LLMs only provides feedback for \textit{userinit.exe}. This means that any normal process not having \textit{userinit.exe} as its parent process gets flagged incorrectly. This issue is also evident in processes like \textit{dllhost.exe} and \textit{conhost.exe} which can have multiple parent processes.
-    \item \textbf{Overconfidence in LLM's Analysis:} For some events that might be absent in a few scenarios, the LLM tends to be overly confident. A case in point is the event \textit{<lsass.exe RegSetValue,hklm/system/currentcontrolset/control/lsa/*>}. While this event is expected to occur in the majority of scenarios, there are specific situations where it might not manifest.  Another example includes a set of three events:\textit{<lsass.exe,Load Image,c:/windows/system32/lsasrv.dll>-><lsass.exe,Load Image,c:/windows/system32/samsrv.dll>-><lsass.exe,Load Image,c:/windows/system32/kerberos.dll>)}. Typically, these events appear together. However, the event associated with kerberos.dll can sometimes be absent or loaded ahead of time. Consequently, having a stringent expectation for normal programs to execute in a specific order leads to false alarms.
-    \item \textbf{Operating System Version Discrepancies:} Our process profile was built based on Windows 10 scenarios. As a result, while false positives are lower in a Windows 10 environment, they're notably higher for Windows 7. This is because Windows 10, being a newer version compared to Windows 7, has undergone changes in process behavior. For instance, in Windows 7, a single \textit{svchost.exe} might host multiple services. In contrast, in Windows 10, it can only host one. Consequently, profiles constructed for Windows 10 tend to have higher false positives when applied to Windows 7.
-\end{itemize}
+\textit{Uniformity in LLM's Results}: The LLM system tends to offer overly single results. For instance, the parent processes of \textit{C:/Windows/explorer.exe} can vary widely, including options like \textit{C:/Windows/explorer.exe} itself and \textit{C:/Windows/System32/userinit.exe}. However, LLMs only provide feedback for \textit{userinit.exe}. This means that any normal process not having \textit{userinit.exe} as its parent process gets flagged incorrectly. This issue is also evident in processes like \textit{dllhost.exe} and \textit{conhost.exe} which can have multiple parent processes.
+
+\textit{Overconfidence in LLM's Analysis}: For some events that might be absent in a few scenarios, the LLM tends to be overly confident. A case in point is the event \textit{<lsass.exe RegSetValue,hklm/system/currentcontrolset/control/lsa/*>}. While this event is expected to occur in the majority of scenarios, there are specific situations where it might not manifest.  Another example includes a set of three events:\textit{<lsass.exe,Load Image,c:/windows/system32/lsasrv.dll>-><lsass.exe,Load Image,c:/windows/system32/samsrv.dll>-><lsass.exe,Load Image,c:/windows/system32/kerberos.dll>)}. Typically, these events appear together. However, the event associated with kerberos.dll can sometimes be absent or loaded ahead of time. Consequently, having a stringent expectation for normal programs to execute in a specific order leads to false alarms.
+
+\textit{Operating System Version Discrepancies}: Our process profile was built based on Windows 10 scenarios. As a result, while false positives are lower in a Windows 10 environment, they're notably higher for Windows 7. This is because Windows 10, being a newer version compared to Windows 7, has undergone changes in process behavior. For instance, in Windows 7, a single \textit{svchost.exe} might host multiple services. In contrast, in Windows 10, it can only host one. Consequently, profiles constructed for Windows 10 tend to have higher false positives when applied to Windows 7.
+
 
 
 \subsubsection{Evaluation on Simulated APT scenarios}
-We construct 10 simulated APT attack scenarios by combining single attack behavior and compare our method against four state-of-the-art techniques. By analyzing cases where current methods exhibit false positives, we aim to explain why these methods might produce false positives.
-
-\begin{figure}[ht]
-    \centering
-      \includegraphics[width=0.49\textwidth]{figs/compare.pdf}
-    \caption{Evaluation on Simulated APT scenarios.}
-    \label{fig-eva-apt}
-\end{figure}
+We construct 10 simulated trojan-based APT attack scenarios by combining single attack behavior and compare our method against three state-of-the-art techniques. 
 
 \begin{itemize}
-    \item \textbf{ThreaTrace}\cite{wang2022threatrace} constructs unique models for each type of node within a provenance graph aims to identify anomalies at the node level. Since this is a method based on anomalous nodes, we can compare the final false positive and false negative rates fairly.
+    \item \textbf{ThreaTrace}\cite{wang2022threatrace} constructs a unique model for each type of node within a provenance graph aiming to identify anomalies at the node level. Since this is a method based on anomalous nodes, we can compare the final false positive and false negative rates fairly.
     \item \textbf{ATLAS}\cite{alsaheel2021atlas} uses graphs to derive attack and non-attack sequences, as well as sequence models to discern attack patterns. we compared the detection effect at the node level because our method is process-centered.
     \item \textbf{Shadewatcher} \cite{zengy2022shadewatcher} have adapted the method originally designed for information flow for our comparative analysis. First, we use Shadewatcher's embedding method to get the node's vector, as soon as the embedding of the node is obtained, we use LOF anomaly detection to determine the detection rate of abnormal nodes.
-    \item \textbf{ProvDetector.} A method analogous to ours is ProvDetector\cite{wang2020you}. It identifies malware by analyzing the provenance graph. In order to detect malware, it transforms paths within the graph into embedded representations and then uses the Local Outlier Factor technique. To evaluate the effectiveness of our method against ProvDetector, we analyzed results based on event investigation.
 \end{itemize}
-
 
 \begin{table}
     \centering
     \small 
+    \scalebox{0.85}{
     \begin{tabular}{|c|c|c|c|c|}
         \hline
         \multicolumn{1}{|c|}{Attack ID} & \multicolumn{2}{c|}{Process} & \multicolumn{2}{c|}{Entity} \\
@@ -171,51 +202,51 @@ We construct 10 simulated APT attack scenarios by combining single attack behavi
         S-10 & 7 & 748 & 21 & 2157 \\
         Avg. & 8 & 907 & 35 & 2493 \\
         \hline
-    \end{tabular}
+    \end{tabular}}
     \caption{Process-based and entity-based investigation results.}
 \end{table}
 
 \begin{table}[ht]
+\scalebox{0.85}{
 \centering
-\begin{tabular}{|l|c|c|c|}
+\begin{tabular}{|l|c|c|c|c|}
 \hline
-\textbf{Method} & \textbf{P(Avg.)} & \textbf{R(Avg.)} & \textbf{F1(Avg.)} \\
+\textbf{Method} & \textbf{P(Avg.)} & \textbf{R(Avg.)} & \textbf{F1(Avg.)} & \textbf{Time (s)} \\
 \hline
-ProvDetector & 17.82\% & 47.58\% & 47.85\% \\
-ThreaTrace & 1.01\% & 35.84\% & 2.00\% \\
-ATLAS & 9.63\% & 57.83\% & 14.68\% \\
-Shadewatcher & 6.52\% & 0.20\% & 0.41\% \\
-\tool & 96.25\% & 90.15\% & 92.79\% \\
+ThreaTrace & 1.01\% & 35.84\% & 2.00\% & 4.5 \\
+ATLAS & 9.63\% & 57.83\% & 14.68\% & 5.8 \\
+Shadewatcher & 6.52\% & 6.20\% & 6.41\% & 3.4 \\
+\textit{\tool} (ours) & 96.25\% & 90.15\% & 92.79\% & 2.3 \\
 \hline
-\end{tabular}
+\end{tabular}}
 \caption{Comparison of different methods.}
 \label{tab:comparison}
 \end{table}
 
+The table that \tool is effective in reporting trojan-based APT attack (with a precision of 96.25\% and a recall of 90.15\%), at the cost of minimum runtime overhead (of on average 2.3s), much better than other methods.
+In the following examples, we will explain why our method works, but other methods fail to recognize or misidentify.
+\paragraph{Case1: Process Masquerade:} Process Masquerade imposes constraints on \textit{svchost.exe}, as illustrated in Figure~\ref{fig:process_mas}. As a result of our method, we can observe that \textit{svchost.exe} normally executes in the path \textit{C:/windows/system32/svchost.exe}, with \textit{services.exe} as its parent process. Malicious \textit{svchost.exe} violates both execution path and parent process constraints in this example, resulting in its classification as malicious. Current methods \cite{wang2022threatrace} are effective to detect attacks that manifest significant behavioral changes in files and networks, such as compression, file scanning, and exfiltration, using graph structures. It is however difficult to identify attacks with these graph-structured methods, such as service execution, and forced authentication, that do not introduce obvious changes to the graph. 
 
-\textbf{Case Study.}
-\begin{itemize}
-    \item \textbf{Process Masquerade:} Process Masquerade imposes constraints on \textit{svchost.exe}, as illustrated in Figure~\ref{fig:process_mas}. As a result of our method, we can observe that \textit{svchost.exe} normally executes in the path \textit{C:/windows/system32/svchost.exe}, with \textit{services.exe} as its parent process. Malicious \textit{svchost.exe} violates both execution path and parent process constraints in this example, resulting in its classification as malicious. Current methods \cite{wang2022threatrace} is effective to detect attacks that manifest significant behavioral changes in files and networks, such as compression, file scanning, and exfiltration, using graph structures. It is however difficult to identify attacks with these graph-structured methods, such as service execution, and forced authentication, that do not introduce obvious changes to the graph. 
-    \item \textbf{Process Hollow:} Shadewatcher is designed to embed itself into every node. In a process hollowing attack as shown in Figure~\ref{fig:hollow}, the depicted \textit{svchost.exe} is hollowed out and the memory functionalities of \textit{cmd.exe} are injected into it. As a result, \textit{svchost.exe} and \textit{cmd.exe} manifest similar functionalities. If we employ Shadewatcher's method of embedding, both \textit{cmd.exe} and \textit{svchost.exe} will have comparable embeddings. Since \textit{cmd.exe} exhibits normal behavior, it becomes indistinguishable whether the behavior of \textit{svchost.exe} is malicious or not. This inability to differentiate results in the failure to detect the attack.
-    \item \textbf{Dll side-Loading:} Similar to process injection, DLL Side-Loading also violates the normal load chain, indicating an aberration from the standard operating procedure, and thereby suggesting malicious activity.
-    \item \textbf{Process Injection:} As illustrated in the Figure~\ref{fig:process_inj}, the attacker injects a malicious \textit{lsasrv.dll} into the \textit{lsass.exe} process. However, a normal \textit{lsass.exe} process follows a specific load chain where \textit{lsasrv.dll} is definitely followed by the loading of \textit{samsrv.dll}. The violation of this temporal constraint indicates malicious activity.
-\end{itemize}
+\paragraph{Case2: Process Injection:} As illustrated in the Figure~\ref{fig:process_inj}, the attacker injects a malicious \textit{lsasrv.dll} into the \textit{lsass.exe} process. However, a normal \textit{lsass.exe} process follows a specific load chain where \textit{lsasrv.dll} is definitely followed by the loading of \textit{samsrv.dll}. The violation of these temporal constraints indicates malicious activity. No specific information is available regarding the DLL. Current methods\cite{wang2022threatrace} are unable to distinguish between attacks and non-attacks based on the graphical structure, making detection impossible.
+
+\paragraph{Case3: Process Hollow:} Shadewatcher\cite{zengy2022shadewatcher} is designed to embed itself into every node. In a process hollowing attack as shown in Figure~\ref{fig:hollow}, the depicted \textit{svchost.exe} is hollowed out and the memory functionalities of \textit{cmd.exe} are injected into it. As a result, \textit{svchost.exe} and \textit{cmd.exe} manifest similar functionalities. If we employ Shadewatcher's method of embedding, both \textit{cmd.exe} and \textit{svchost.exe} will have comparable embeddings. Since \textit{cmd.exe} exhibits normal behavior, it becomes indistinguishable whether the behavior of \textit{svchost.exe} is malicious or not. This inability to differentiate results in the failure to detect the attack.
+
+\paragraph{Case4: Dll side-Loading:} Similar to process injection, DLL Side-Loading also violates the normal load chain, indicating an aberration from the standard operating procedure, and thereby suggesting malicious activity. According to current methods\cite{wang2022threatrace}, the graphical structure cannot distinguish attacks from non-attacks, making detection impossible.
+
 
 
 
 \subsection{Efficiency}
 \label{sec-eff}
 Regarding the efficiency concerns of our system, we aim to investigate the following questions:
-\begin{itemize}
-    \item How long does it take for our method to construct a profile for each process?
-    \item Which step in the process profile creation is the most time-consuming?
-\end{itemize}
-
-To determine this, we have divided the process profile construction into five steps. We then individually measure the runtime and costs for each step, as illustrated in the Table~\ref{tab:process_metrics}.
+1) How long does it take for our method to construct a profile for each process?
+2) Which step in the process profile creation is the most time-consuming?
+To determine this, we have divided the process profile construction into five steps. We then individually measure the runtime and costs for each step, as illustrated in Table~\ref{tab:process_metrics}.
 In our study, we found that the process behavior tree construction is the most time-consuming and expensive part of the project. It takes 21 minutes and \$3.51 to build a profile for a single process.
 
 \begin{table}[h!]
     \centering
+    \scalebox{0.85}{
     \begin{tabular}{|l|c|c|}
         \hline
         & Running Time & Cost \\
@@ -232,21 +263,19 @@ In our study, we found that the process behavior tree construction is the most t
         \hline
         Total & 1379(s) & 3.51\$ \\
         \hline
-    \end{tabular}
+    \end{tabular}}
     \caption{Running Time and Cost for various processes}
     \label{tab:process_metrics}
 \end{table}
 
 \subsection{Ablation Study}
 \label{sec-ab-study}
-A ablation study was conducted integrating data from 10 different attack scenarios with three normal scenarios, namely Windows 7, Windows 10, and Windows 11. In total, the attack scenarios included 80 attack processes, while the normal scenarios comprised 1960 regular processes.
-The ablation study aims at assessing the effectiveness of the divergent and validation methods that are integral to \tool's performance. Our goal is to understand the contributions of two critical modules: the Process Tree Construction Module and the Validation Module. 
-This experiment modified the approach by either removing one or both of these steps. As a result, three control groups were created:
-\begin{itemize}
-\item \textit{\tool-NO-Tree-Construction}: The Process Tree Construction Module is deactivated. This means all data is input directly into the system without any hierarchical structuring.
-\item \textit{\tool-NO-Validation}: The Validation Module is inactive, which means that real log  validation and multi-round session debate validation have been disabled.
-\item \textit{\tool-NO-All}: This indicates that the process tree Construction and validation steps have both been removed.
-\end{itemize}
+An ablation study was conducted integrating data from 10 different attack scenarios with three normal scenarios as shown in ~\ref{fig:comparison}. In total, the attack scenarios included 70 attack processes, while the normal scenarios comprised 1960 regular processes.
+The ablation study aims at assessing the effectiveness of the divergent and validation methods that are integral to \tool's performance. 
+This experiment modified the approach by either removing one or both of these steps.
+1) \textbf{\tool-NO-Tree-Construction}: The Process Tree Construction Module is deactivated. This means all data is input directly into the system without any hierarchical structuring.
+2) \textbf{\tool-NO-Validation}: The Validation Module is inactive, which means that real log validation and multi-round session debate validation have been disabled.
+3) \textbf{\tool-NO-All}: This indicates that the process tree Construction and validation steps have both been removed.
 
 \begin{figure}[h]
     \centering
@@ -258,43 +287,71 @@ This experiment modified the approach by either removing one or both of these st
     \hfill
     \begin{subfigure}[b]{0.23\textwidth}
         \includegraphics[width=\textwidth]{figs/FP.pdf}
-        \caption{False Positives for Normal Scenario}
+        \caption{False Positive for Normal Scenario}
         \label{fig:false_positives}
     \end{subfigure}
     \caption{Comparison of different methods in terms of False Negative and false positives}
     \label{fig:comparison}
 \end{figure}
 We found no significant difference in attack scenarios between our method and the control method. Our approach, however, achieved the lowest false positive rate for normal scenarios.
-
 In the following, examples are used to illustrate the role of adding behavior trees and validation links in reducing false positives.
 Without the construction of the behavior tree, we obtain many constraints that are too broad.
-For example, the behaviors that we mind and that \textit{svchost.exe} must obey when hosting certain services, like \textit{PhoneSvc} and \textit{NgcSvc}, must have behavior \textit{svchost.exe,CreateFile,*/localservice/appdata*}. However, for other services like the \textit{DHCP service}, this behavior isn't necessarily required.
-These are not behaviors that all processes must adhere to, resulting in a high false positive rate when tested normally. 
+For example, the behaviors that we mind and that \textit{svchost.exe} must obey when hosting certain services, like \textit{PhoneSvc} and \textit{NgcSvc}, must have behavior \textit{svchost.exe,CreateFile,*/localservice/appdata*}. However, for other services like the \textit{DHCP service}, this behavior isn't necessarily required. These are not behaviors that all processes must adhere to, resulting in a high false positive rate when tested normally. 
 
-We aim to demonstrate the effectiveness of our cross-session validation approach. To this end, we've introduced a novel validation method: employing three agents to engage in a debate to validate behaviors. From our experiments, it's evident that for actions that are undeniably factual, the three agents can reach a consensus after multiple rounds of debate. For instance, \textit{lsass.exe} will unquestionably load \textit{c:/windows/system32/lsasrv.dll}. On the other hand, for behaviors that aren't necessarily factual, the agents diverge in their opinions after several debate rounds and pinpoint the underlying reasons. For example, the behavior of \textit{sass.exe} with \textit{RegSetValue, hklm/system/currentcontrolset/control/lsa/} is not mandatory.
+We aim to demonstrate the effectiveness of our cross-session validation approach. From our experiments, it's evident that for actions that are undeniably factual, the three agents can reach a consensus after multiple rounds of debate. For instance, \textit{lsass.exe} will unquestionably load \textit{c:/windows/system32/lsasrv.dll}. On the other hand, for behaviors that aren't necessarily factual, the agents diverge in their opinions after several debate rounds and pinpoint the underlying reasons. For example, the behavior of \textit{sass.exe} with \textit{RegSetValue, hklm/system/currentcontrolset/control/lsa/} is not mandatory.
 
 
 
 \subsection{Explanation Validation}
 \label{sec-explanation-val}
-
-Detection and interpretation are seamlessly integrated into our approach. The following sections explain how our method exposes attack behaviors and facilitates rapid verification and response to threats by security analysts.
-To confirm the accuracy of the constraints we extracted, we searched Google, blogs, books, etc. In some public reports, we found consistency between their findings and our constraints.
+To confirm the accuracy of the behavioral invariant we extracted, we searched Google, blogs, books, etc. In some public reports, we found consistency between their findings and our constraints.
 
 There are some crucial documents\cite{nasbench}, including a technical document that outlines 15 essential system processes and their execution paths. For instance, in the case of \textit{lsass.exe}, the document indicates that its parent process is \textit{wininit.exe}, it does not have a fixed child process, and its execution path is \textit{c:/windows/system32/lsass.exe}. It aligns with the knowledge we have gained through LLMs.
-There is also document\cite{windows10dll} about static call relationship between Windows DLLs. \textit{Lsass.exe} will undoubtedly load \textit{lsasrv.dll}, and \textit{lsasrv.dll} and \textit{samsrv.dll} have a static link relationship. This knowledge also remains consistent with what we have learned through LLMs.
+There is also document\cite{windows10dll} about static call relationships between Windows DLLs. \textit{Lsass.exe} will undoubtedly load \textit{lsasrv.dll}, and \textit{lsasrv.dll} and \textit{samsrv.dll} have a static link relationship. This knowledge also remains consistent with what we have learned through LLMs.
 
 % https://nasbench.medium.com/windows-system-processes-an-overview-for-blue-teams-42fa7a617920
 
 % https://windows10dll.nirsoft.net/lsasrv_dll.html
 
+\begin{table*}
+    \centering
+    \scalebox{0.85}{
+    \begin{tabular}{|l|l|l|p{6cm}|}
+        \hline
+        Masquerading Type & Malware/APT & Targeting process & Description \\
+        \hline
+        \multirow{2}{*}{Process Masquerading}
+        & GALLIUM\cite{cybereason2023} & \textit{cmd.exe} & Attackers use a renamed \textit{cmd.exe} file to evade detection \\
+        \cline{2-4}
+        & DCSrv\cite{checkpoint2021} & \textit{svchost.exe} & Attackers masquerade as a legitimate \textit{svchost.exe} process to encrypt all computer volumes \\
+        \cline{2-4}
+        & APT29\cite{mitre_g0016} & \textit{svchost.exe/rar.exe} & Attackers rename benign processes for use in various stages of the attack \\
+        \hline
+        \multirow{3}{*}{Dynamic-link Library Injection} & Aria-body\cite{checkpoint2020} & \textit{rundll32.exe/dllhost.exe} & Aria-body loader injects itself to another process \\
+        \cline{2-4}
+        & BlackEnergy\cite{fsecure2019} & \textit{svchost.exe} & The driver component injects the main DLL component into \textit{svchost.exe} \\
+        \cline{2-4}
+        & Sykipot\cite{att2023} & \textit{outlook/iexplore.exe} & The malware scans running processes for outlook or iexplore and injects a DLL \\
+        \hline
+        \multirow{2}{*}{Process Hollowing} & RCSession\cite{secureworks} & \textit{svchost.exe} & RCSession was launched from \textit{English.rtf} via a hollowed \textit{svchost.exe} \\
+        \hline
+        \multirow{2}{*}{Dll side-Loading} & APT3\cite{mitre_g0022} & \textit{Chrome.exe} & Attackers side load DLLs with a valid version of Chrome with their tools \\
+        \cline{2-4}
+        & APT29\cite{mitre_g0016} & \textit{Msoev.exe} & Attackers use an HTA file to drop three executables into the \%TEMP\% directory \\
+        \hline
+    \end{tabular}}
+    \caption{Real world APT Attack using stealthy technical}
+    \label{tab:real_world}
+\end{table*}
+
 \subsection{Real-world Validation}
 \label{sec-real-world}
 
-We collected some publicly available malicious software related to APTs, as shown in the Figure~\ref{tab:real_world}.
-In some cases, such as for APT29, we were able to retrieve the original collected data directly, while in others we could only retrieve the dynamic execution logs from the VirusTotal sandbox. Using this real-world data, we wanted to validate the effectiveness of our method. As a result, we can detect most types of stealthy attacks using our method, including these four types of stealthy attacks.
+We collected some publicly available malicious software related to APTs, as shown in Figure~\ref{tab:real_world}.
+Using this real-world data, we wanted to validate the effectiveness of our method. As a result, we can detect most types of stealthy attacks using our method, including these four types of trojan stealthy attacks.
+We reviewed a total of 11 real APT attack reports and analyzed the data. Finally, we found that 9 out of 11 attacks could be detected by our method.
 
-
+Here are three specific examples.
 \noindent
 {\bf APT29 \cite{mitre_g0016}.}
 We have analyzed malicious payloads associated with APT29, specifically focusing on \textit{python.exe}. According to the profile we constructed for a typical Python application, \textit{python.exe} would certainly load \textit{pythonxx.dll} and \textit{vcruntime140.dll}. However, in the dataset related to the malicious \textit{python.exe} used by APT29, we didn't find evidence of these two DLLs being loaded. This suggests that the \textit{python.exe} under scrutiny is likely not a standard or legitimate version.
@@ -306,6 +363,9 @@ Moving on to the malware named DCSrv, we located this malicious software in the 
 \noindent
 {\bf Sykipot\cite{att2023}.}
 It appears that the malicious program Sykipot launches process injection attacks against \textit{firefox.exe}. The injected malicious dll is named \textit{wship4.dll}. There is no legitimate DLL by this name, but we did find \textit{wship6.dll}, which is related to IPv6 network operations. In order for \textit{wship6.dll} to interact correctly, \textit{WS2\_32.dll} must also be loaded. Furthermore, there was no indication that \textit{WS2\_32.dll} was loaded, indicating malicious activity.
+
+
+
 
 
 
