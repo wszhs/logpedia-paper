@@ -49,7 +49,7 @@ We created a prompt to query the LLMs about whether a particular program exists 
 and uncertain process names (due to the LLMs database's incompleteness). Many illegitimate process names are caused by name confusion, so we can change them to legitimate process names for further evaluation.
 For the legitimate and confusion processes, we use the methods described in the following sections to construct profiles. In case of illegitimate or uncertain categories, security analysts should investigate further since they may contain malware.
 
-\subsection{Constraints Generation}
+\subsection{Behavioral Reference Construction}
 \label{sec:profile_con}
 Next, we present our profile building module in detail, which consists of three agent components and a central program controller.
 \tool is controlled by a central program controller, which is often referred to as the "brain" of the system. In this central program controller, two components are integral: memory and validation mechanisms, which include both format and factual verification. 
@@ -101,30 +101,30 @@ The resulting behavior tree is illustrated in the Figure~\ref{fig:behavior-tree}
 
 An initial step is to design a prompt (detailed prompts can be found in Appendix:\ref{prompt-commands}) for generating commands from previous behavior trees. In order to obtain actual log files, this prompt generates corresponding system commands. We can validate some of the behaviors described in the previous step by collecting these logs. Using these logs, it is possible to directly verify some behaviors like parent processes, execution paths, and other details. It is, however, not possible to translate all system processes and behaviors into executable commands. In these cases, we employ the LLMs to produce relevant recommendations, which guide us in manually engaging with the system to obtain the required logs.
 
-\subsubsection{Constraint Extraction}
+\subsubsection{Behavioral Invariants Extraction}
 
 \begin{figure*}[h]
   \begin{subfigure}{.5\textwidth}
       \includegraphics[width=\textwidth]{figs/svchost_constraints.pdf}
-      \caption{Constraints of Svchost}
+      \caption{Behaviorial Invariants of Svchost}
       \label{fig:cons-svchost}
   \end{subfigure}
   \hfill
   \begin{subfigure}{.5\textwidth}
       \includegraphics[width=\textwidth]{figs/smss_lsass_constraints.pdf}
-      \caption{Constraints of Smss and Lsass}
+      \caption{Behaviorial Invariants of Smss and Lsass}
       \label{fig:cons-smss-lsass}
   \end{subfigure}
 
   \begin{subfigure}{.5\textwidth}
       \includegraphics[width=\textwidth]{figs/svchost.pdf}
-      \caption{Svchost Constraints in Graph format}
+      \caption{Svchost Behaviorial Invariants in Graph format}
       \label{fig:con-svchost-tree}
   \end{subfigure}
   \hfill
   \begin{subfigure}{.5\textwidth}
       \includegraphics[width=\textwidth]{figs/lsass.pdf}
-      \caption{Lsass Constraints in Graph format}
+      \caption{Lsass Behaviorial Invariants in Graph format}
       \label{fig:con-lsass}
   \end{subfigure}
   \caption{Constraint Definition}
@@ -159,7 +159,7 @@ Having established the common items and sequences, we then direct our queries to
 The detailed set of prompts used in this process as shown in Appendix~\ref{prompt-cons-explain}.
 
 
-\subsubsection{Explanation and Validation}
+\subsection{Runtime Behavioral Validation}
 
 Furthermore, we request the LLMs to explain its findings, providing insights into these constraints.
 Based on the prompt as shown in Appendix~\ref{prompt-cons-explain}, we ask LLMs to explain why this constraint exists, such as why \textit{lsass.exe} must load \textit{lsasrv.dll}, and why \textit{lsass.exe} must load \textit{samsrv.dll} after loading \textit{lsasrv.dll}. 
@@ -167,9 +167,6 @@ The LLMs would respond: \textit{lsass.exe} loads \textit{lsasrv.dll} primarily t
 \textit{lsass.exe} loads \textit{samsrv.dll} to manage and access the security account database, supporting user authentication and the implementation of local security policies
 
 In addition, due to the potential for hallucinations or misleading results, it is imperative to ensure the accuracy and consistency of LLMs outputs. Due to this challenge, we developed a two-dimensional validation system.
-
-\textbf{Format Validation.}
-As a result of this initial step, the model's output adheres to a predefined structure. Using conventional programming methods, deviations are corrected to match the expected format.
 
 \textbf{Factual Validation.}
 A more important validation is the factual validation, which is designed to ensure that LLM's final output is accurate and consistent.

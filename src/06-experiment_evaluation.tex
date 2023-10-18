@@ -9,7 +9,7 @@ In order to validate the effectiveness of our approach, we simulated 4 stealthy 
     \item \textbf{Q4.} How can we validate the accuracy of these explanations using our method? (§~\ref{sec-explanation-val})
     \item \textbf{Q5.} Is it common for real-world APT attacks to disguise their processes in various ways? (§~\ref{sec-real-world})
 \end{itemize}
-All experiments are performed on a server with Intel Xeon E5-2620 v4 CPUs @ 2.10GHz, 64 GB physical memory, and an NVIDIA Tesla V100 GPU. The OS is Ubuntu 16.04.3 LTS.
+All experiments are performed on a server with AMD EPYC 7543P 32-Core Processor, 256 GB physical memory. The OS is Microsoft Windows 10 (64-bit).
 We implemented our system by calling OpenAI's GPT-4 API with a temperature setting of 0.5.
 We develop \tool in 3.53K lines of C++ code and 10K lines of Python code.
 The C++ code in the project is utilized for the generation of malicious attacks, while the Python code is employed for data preprocessing, building process profiles, and threat detection.
@@ -17,49 +17,6 @@ The C++ code in the project is utilized for the generation of malicious attacks,
 
 \subsection{Implementation}
 We present important technical details in the implementation.
-
-\subsubsection{System Auditing Collection}
-Although \tool can handle input from Linux and Windows systems, our evaluation focuses primarily on Windows events. Because most of our benign deployment environment consists of Windows-based hosts, and sophisticated malware is mostly designed for Windows platforms, this is largely due to the fact that we have a benign deployment environment. We use \textit{Sysmon}, Windows' sophisticated log collection tool, to collect provenance data from these systems. System logs are captured thoroughly and exhaustively by leveraging \textit{Sysmon}'s default settings.
-
-\subsubsection{Attack Datasets}
-
-To address the challenges, we approache the problem from three distinct angles: expanding coverage of malicious functionalities and the ATT\&CK framework, employing advanced stealthy techniques, and simulating genuine APT attacks.
-
-We executed our APT attack simulations in three steps:
-
-\begin{itemize}
-    \item  \textbf{Enhancing Malicious Functionalities:} In order to simulate a wider range of malicious activities, we handcrafted 14 malicious functions in C++, including BypassUAC, Encryption, File Monitor, Compression, Keyboard Monitor, and Privilege Escalation, etc. In addition, we implemented 9 different TTP attacks using well-known hacker utilities  \textit{Caldera}. Using C++ and \textit{Caldera} methodologies, we achieved 23 distinct malicious functions. APT attacks take place at various stages, including Initial Access, Privilege Escalation, Information Gathering, Defense Evasion, and ensuring Persistence.
-    \item \textbf{Employing Stealth Techniques:} We incorporated four stealth methods: Process Masquerade, Process Hollow, Process Injection, and DLL Side-Loading. By combining these stealthy techniques with the 23 malicious functionalities, a variety of attack variants can be created. Process Masquerade and Process Hollow hide malicious process names, while Process Injection and DLL Side-Loading hide malicious DLLs.
-    \item \textbf{Simulating Real-world APTs:} In order to enhance the authenticity of our simulations, we developed ten APT attack scenarios based on an analysis of real-world Advanced Persistent Threat activities. During a controlled testbed environment, audit logs were produced. We crafted ten simulated APT attack narratives using the four stealth techniques from the second step and the 23 malicious functionalities from the first step.
-\end{itemize}
-
-\noindent
-{\bf Real-world datasets.} Using real-world datasets, we aimed to validate the frequency of masquerade techniques such as name masquerading in authentic APT attacks and associated malicious software; to this end, we collected publicly available APT attack simulation datasets alongside malware samples like GALLIUM\cite{cybereason2023}, DCSrv\cite{checkpoint2021}, and Egrego\cite{intrinsec}, etc. which are known to employ techniques like name masquerading and process injection;  APT29 poses as \textit{python.exe}, \textit{rar.exe}, and \textit{accesschk.exe}; furthermore, they utilize DLL Side-Loading, specifically by loading a malicious \textit{mso.dll} file, with comprehensive details showcased in the subsequent Table~\ref{tab:real_world}. We will delve into the specifics of how we utilized real-world datasets to validate the efficacy of our approach in Section~\ref{sec-real-world}.
-
-\noindent
-{\bf Label.}
-By using our knowledge of attack workflow, we manually label the ground truth of interactions through their relation to attacks, as we are aware of how attacks are executed.
-
-
-\subsubsection{Normal Datasets}
-To validate the false positive rate of our methodology, A publicly available benign dataset, \cite{evtx-baseline2022}, is used in this analysis. This dataset encompasses logs generated from routine user activities across various Windows operating systems, including Windows 7, Windows 10 and Windows 11. The logs from this dataset cover the 13/47/52 processes for different system that we use to construct process profiles.
-
-\begin{figure}[h]
-    \centering
-      \includegraphics[width=0.45\textwidth]{figs/process.pdf}
-    \caption{Comparison of attack frequencies for different processes based on the official MITRE website.}
-    \label{fig-process}
-\end{figure}
-
-\subsubsection{Process Classification}
-In order to construct a comprehensive analysis framework, we strategically selected 100 pivotal processes for examination. The selection criteria encompassed multiple dimensions, including: 1) Core system processes that are integral to system functionality; 2) Processes highly associated with security mechanisms; and 3) Processes commonly utilized by system administrators. Additionally, we integrated an assessment of processes that are frequently targeted in cyber-attacks, based on statistical analysis derived from MITRE's official website as shown in Figure~\ref{fig-process}.
-
-We highlight the two most common processes: \textit{svchost.exe} and \textit{rundll32.exe}:
-\begin{itemize}
-    \item \textbf{\textit{Svchost.exe} processes}. \textit{svchost.exe} is a Windows system utility that runs multiple services from dynamic link libraries (.dll files). Given its trusted status and constant presence, adversaries often mimic \textit{svchost.exe} for attacks. The behavior tree for \textit{svchost.exe}, constructed based on our approach, is shown in the Figure~\ref{fig:behavior-tree}.
-    \item \textbf{\textit{Rundll32.exe} processes}. \textit{rundll32.exe} loads specific functions from .dll files. Unlike \textit{svchost.exe}, it's more vulnerable, as attackers can create their own .dll for it. Due to its exploitability, \textit{rundll32.exe} is a prime target for malware impersonation. 
-\end{itemize}
-
 
 
 \subsection{Effectiveness}
@@ -121,7 +78,7 @@ We highlight the two most common processes: \textit{svchost.exe} and \textit{run
 \subsubsection{Evaluation on Attack for Various Processes}
 
 We launched attacks on 100 system processes using 4 stealthy techniques, targeting 23 malicious functionalities. Due to space constraints, we show 10 typical malicious functions.
-As illustrated in the Table~\ref{table:eva-attack}, based on the 40 attacks we synthesized, our method detected 56 out of 60 processes in the worst-case scenario, thus achieving a very low false negative rate.
+As illustrated in the Table~\ref{table:eva-attack}, based on the 40 attacks we synthesized, our method detected 66 out of 70 processes in the worst-case scenario, thus achieving a very low false negative rate.
 However, some errors still persist, which we intend to delve into further.
 
 \begin{table*}[h!]
@@ -130,10 +87,10 @@ However, some errors still persist, which we intend to delve into further.
         \hline
         & \textbf{BU} & \textbf{C} & \textbf{FM} & \textbf{FS} & \textbf{ST} & \textbf{PE} & \textbf{KM} & \textbf{FA} & \textbf{SE} & \textbf{E} \\
         \hline
-\multicolumn{1}{|l|}{\textbf{PM}} & \multicolumn{1}{l|}{59/60}   & \multicolumn{1}{l|}{59/60}  & \multicolumn{1}{l|}{59/60}   & \multicolumn{1}{l|}{59/60}   & \multicolumn{1}{l|}{59/60}   & \multicolumn{1}{l|}{59/60}   & \multicolumn{1}{l|}{59/60}   & \multicolumn{1}{l|}{59/60}   & \multicolumn{1}{l|}{59/60}   & \multicolumn{1}{l|}{59/60}  \\ \hline
-\multicolumn{1}{|l|}{\textbf{PH}} & \multicolumn{1}{l|}{59/60}   & \multicolumn{1}{l|}{57/60}  & \multicolumn{1}{l|}{57/60}   & \multicolumn{1}{l|}{58/60}   & \multicolumn{1}{l|}{58/60}   & \multicolumn{1}{l|}{59/60}   & \multicolumn{1}{l|}{57/60}   & \multicolumn{1}{l|}{57/60}   & \multicolumn{1}{l|}{59/60}   & \multicolumn{1}{l|}{60/60}  \\ \hline
-\multicolumn{1}{|l|}{\textbf{PI}} & \multicolumn{1}{l|}{56/60}   & \multicolumn{1}{l|}{55/60}  & \multicolumn{1}{l|}{57/60}   & \multicolumn{1}{l|}{59/60}   & \multicolumn{1}{l|}{57/60}   & \multicolumn{1}{l|}{58/60}   & \multicolumn{1}{l|}{59/60}   & \multicolumn{1}{l|}{57/60}   & \multicolumn{1}{l|}{57/60}   & \multicolumn{1}{l|}{58/60}  \\ \hline
-\textbf{DLL}                      & 59/60                        & 58/60                       & 57/60                        & 57/60                        & 59/60                        & 56/60                        & 57/60                        & 57/60                        & 58/60                        & 56/60                       \\ 
+\multicolumn{1}{|l|}{\textbf{PM}} & \multicolumn{1}{l|}{69/70}   & \multicolumn{1}{l|}{69/70}  & \multicolumn{1}{l|}{69/70}   & \multicolumn{1}{l|}{69/70}   & \multicolumn{1}{l|}{69/70}   & \multicolumn{1}{l|}{69/70}   & \multicolumn{1}{l|}{69/70}   & \multicolumn{1}{l|}{69/70}   & \multicolumn{1}{l|}{69/70}   & \multicolumn{1}{l|}{69/70}  \\ \hline
+\multicolumn{1}{|l|}{\textbf{PH}} & \multicolumn{1}{l|}{69/70}   & \multicolumn{1}{l|}{67/70}  & \multicolumn{1}{l|}{67/70}   & \multicolumn{1}{l|}{68/70}   & \multicolumn{1}{l|}{68/70}   & \multicolumn{1}{l|}{69/70}   & \multicolumn{1}{l|}{67/70}   & \multicolumn{1}{l|}{67/70}   & \multicolumn{1}{l|}{69/70}   & \multicolumn{1}{l|}{70/70}  \\ \hline
+\multicolumn{1}{|l|}{\textbf{PI}} & \multicolumn{1}{l|}{66/70}   & \multicolumn{1}{l|}{65/70}  & \multicolumn{1}{l|}{67/70}   & \multicolumn{1}{l|}{69/70}   & \multicolumn{1}{l|}{67/70}   & \multicolumn{1}{l|}{68/70}   & \multicolumn{1}{l|}{69/70}   & \multicolumn{1}{l|}{67/70}   & \multicolumn{1}{l|}{67/70}   & \multicolumn{1}{l|}{68/70}  \\ \hline
+\textbf{DLL}                      & 69/70                        & 68/70                       & 67/70                        & 67/70                        & 69/70                        & 66/70                        & 67/70                        & 67/70                        & 68/70                        & 66/70                       \\ 
         \hline
     \end{tabularx}
     \caption{Detection of Process Count for Various Techniques and Malicious Activities.}
@@ -186,9 +143,9 @@ We construct 10 simulated APT attack scenarios by combining single attack behavi
 \end{figure}
 
 \begin{itemize}
-    \item \textbf{ThreaTrace}\cite{wang2022threatrace} An algorithm that constructs unique models for each type of node within a provenance graph aims to identify anomalies at the node level. Since this is a method based on anomalous nodes, we can compare the final false positive and false negative rates fairly.
-    \item \textbf{ATLAS}\cite{alsaheel2021atlas} Uses graphs to derive attack and non-attack sequences, as well as sequence models to discern attack patterns. we compared the detection effect at the node level because our method is process-centered.
-    \item \textbf{Shadewatcher} \cite{zengy2022shadewatcher} We have adapted the method originally designed for information flow for our comparative analysis. First, we use Shadewatcher's embedding method to get the node's vector, as soon as the embedding of the node is obtained, we use LOF anomaly detection to determine the detection rate of abnormal nodes.
+    \item \textbf{ThreaTrace}\cite{wang2022threatrace} constructs unique models for each type of node within a provenance graph aims to identify anomalies at the node level. Since this is a method based on anomalous nodes, we can compare the final false positive and false negative rates fairly.
+    \item \textbf{ATLAS}\cite{alsaheel2021atlas} uses graphs to derive attack and non-attack sequences, as well as sequence models to discern attack patterns. we compared the detection effect at the node level because our method is process-centered.
+    \item \textbf{Shadewatcher} \cite{zengy2022shadewatcher} have adapted the method originally designed for information flow for our comparative analysis. First, we use Shadewatcher's embedding method to get the node's vector, as soon as the embedding of the node is obtained, we use LOF anomaly detection to determine the detection rate of abnormal nodes.
     \item \textbf{ProvDetector.} A method analogous to ours is ProvDetector\cite{wang2020you}. It identifies malware by analyzing the provenance graph. In order to detect malware, it transforms paths within the graph into embedded representations and then uses the Local Outlier Factor technique. To evaluate the effectiveness of our method against ProvDetector, we analyzed results based on event investigation.
 \end{itemize}
 
@@ -324,7 +281,7 @@ We aim to demonstrate the effectiveness of our cross-session validation approach
 Detection and interpretation are seamlessly integrated into our approach. The following sections explain how our method exposes attack behaviors and facilitates rapid verification and response to threats by security analysts.
 To confirm the accuracy of the constraints we extracted, we searched Google, blogs, books, etc. In some public reports, we found consistency between their findings and our constraints.
 
-There are some crucial documents\cite{nasbench}, including a technical document that outlines 15 essential system processes and their execution paths. For instance, in the case of \textit{lsass.exe}, the document indicates that its parent process is \textit{wininit.exe}, it does not have a fixed child process, and its execution path is \textit{\%Systemroot\%/system32/lsass.exe}. It aligns with the knowledge we have gained through LLMs.
+There are some crucial documents\cite{nasbench}, including a technical document that outlines 15 essential system processes and their execution paths. For instance, in the case of \textit{lsass.exe}, the document indicates that its parent process is \textit{wininit.exe}, it does not have a fixed child process, and its execution path is \textit{c:/windows/system32/lsass.exe}. It aligns with the knowledge we have gained through LLMs.
 There is also document\cite{windows10dll} about static call relationship between Windows DLLs. \textit{Lsass.exe} will undoubtedly load \textit{lsasrv.dll}, and \textit{lsasrv.dll} and \textit{samsrv.dll} have a static link relationship. This knowledge also remains consistent with what we have learned through LLMs.
 
 % https://nasbench.medium.com/windows-system-processes-an-overview-for-blue-teams-42fa7a617920

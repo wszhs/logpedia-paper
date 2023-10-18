@@ -22,13 +22,13 @@ Thus, we raise intrusion alarm based on the inconsistency between
 the behaviors of a target program (e.g., scanning the ports) and
 its claimed process intention (e.g., \textit{svchost.exe}).
 On one hand, we construct the normal behaviorial profile of a system process by extracting
-its verifiable logical formula from LLM,
+its verifiable logical formula from LLMs,
 representing its behaviorial invariants.
 On the other hand, we extract the runtime behavior of plausible system processes
 from the system logs.
 The violation of process from its normality (i.e., behaviorial invariants) serves as both the explanation and alarm.
 Our extensive experiment on \linyun{XX} systems shows that 
-\tool is effective in reporting trojan-based APT attack (with the precision of \linyun{100\%} and the recall of \linyun{??\%}),
+\tool is effective in reporting trojan-based APT attack (with the precision of 96.25\% and the recall of 90.15\%),
 at the cost of minimum runtime overhead (of on average \linyun{3s}).
 Further, our wild study shows that \tool can detect \linyun{??} trojan-based attacks on \linyun{??} systems.
 
