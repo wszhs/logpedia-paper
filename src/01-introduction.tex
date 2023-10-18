@@ -16,11 +16,11 @@ are often used in APT attacks.
 The malware allows the attackers to 
 be evasive from user screening and
 exploit the compromised system for a longer time.
-For example in \hangsheng{}\linyun{DARPA DC} dataset, 
+For example in \linyun{DARPA DC} dataset, 
 a trojan can disguise itself as a system process \textit{svchost.exe} (see Section~\ref{sec:motivation} for more details)
 to increase its plausibility and avoid the detection,
-which lasts for \hangsheng{Not so long}\linyun{XX} years.
-Further, the MITRE ATT\&CK Framework reports \hangsheng{}\linyun{???\%} of the trojan-relevant attacks.
+which lasts for \linyun{XX} years.
+Further, the MITRE ATT\&CK Framework reports \linyun{???\%} of the trojan-relevant attacks.
 A growing number of evidence shows that trojan-based APT attack is 
 pervasive \cite{valeros2020growth, xx}. 
 
@@ -30,42 +30,42 @@ report the post-intrusion behaviors based on the collected system logs,
 which can generally fall into rule-based approaches \cite{milajerdi2019holmes,milajerdi2019poirot,hossain2020combating} and learning-based approaches \cite{liu2018towards,hassan2019nodoze,hassan2020we, wang2022threatrace,han2020unicorn,wang2020you}. 
 
 \noindent\textbf{Rule-based Approaches.}
-The rule-based solutions are usually commercial products \cite{milajerdi2019holmes,milajerdi2019poirot,hossain2020combating} such as SIEM (Security Information and Event Management) and \hangsheng{EDR}\linyun{YYY} detect APT attacks via predefined security rules.
+The rule-based solutions are usually commercial products \cite{milajerdi2019holmes,milajerdi2019poirot,hossain2020combating} such as SIEM (Security Information and Event Management) and \linyun{YYY} detect APT attacks via predefined security rules.
 While the rules can be useful in a way,
 they can be either too strict so that they miss reporting true positives or
-too general so that a large number of false alarms exhaustively costly to validate,
+too general so that a large number of false alarms are exhaustively costly to validate,
 undermining users' confidence in the tools.
 
 \noindent\textbf{Learning-based Approaches.}
-Many researchers consider the problem of intrusion detection as a supervised-learning\hangsheng{Not all are supervised models} problem \cite{liu2018towards,hassan2019nodoze,hassan2020we} or an unsupervised-learning problem \cite{wang2022threatrace,han2020unicorn,wang2020you}.
+Many researchers consider the problem of intrusion detection as a supervised-learning problem \cite{liu2018towards,hassan2019nodoze,hassan2020we} or an unsupervised-learning problem \cite{wang2022threatrace,han2020unicorn,wang2020you}.
 Therefore, different representations \cite{zeng2021watson, zengy2022shadewatcher} (including graph embedding, context-aware information flow, etc.) are extracted and learned from the system logs.
 If the logs or its representation (nodes on the log-derived provenance graph) can be attached with labels (malicious or not),
-we can learn a classification model to predict the attacks \hangsheng{\cite{wang2022threatrace,han2020unicorn,wang2020you}}.
+we can learn a classification model to predict the attacks \cite{xxx}.
 Otherwise, we define and learn the normality on the log representation (e.g., graph \cite{manzoor2016fast,han2020unicorn,li2021hierarchical,yang2023prographer,cheng2023kairos}, path \cite{wang2020you,alsaheel2021atlas}, text sequence, etc.), and detect the attacks (or the anomaly) by
 defining a distance in the representation space.
 
 While the learning-based approaches can leverage 
-the AI-powered infrastructure (e.g., Graph Neural Network \cite{}, BERT \cite{xx}, etc.) from the machine learning community,
+the AI-powered infrastructure (e.g., Graph Neural Network \cite{xx}, BERT \cite{xx}, etc.) from the machine learning community,
 they still suffer from the following insufficiencies.
 
 \begin{itemize}[leftmargin=*]
   \item \textbf{Explainability:}
-    While the attack can be predicted in a supervised-learning or unsupervised-learning solution,
+    While the attack can be learned and predicted in a data-driven way,
     the numeric representation is not straightforward for a security engineer to 
     validate the potential false alarm.
-    Therefore, the security engineers still need to pay non-trivial efforts to 
+    With a reported alarm, they still need to pay non-trivial efforts to 
     track the event causality from the system logs.
     Any false alarm can undermine users' trust in the solution.
   \item \textbf{The Quality of Training Dataset:}
     It is non-trivial to label high-quality training dataset in such a security application.
     More often than not, the attack logs are the minority, which introduces inherent data imbalance problem.
-    As a result, it is non-trivial to fill the gap between the experimental and the practical performance.
+    As a result, the performance gap between the experiment and the practice the learned model can be huge.
     %Thus, it is unclear whether the performance of the trained model can be well generalized in practice.
   \item \textbf{Evolving Attacks:}
     Finally, the learned models can be dependent on the training dataset of attack logs.
-    In the cat-and-rat game of APT security,
+    In the cat-and-rat game of APT attack security,
     novel attacks can always emerge, 
-    leaving both the training dataset and its derived model obsolete.
+    leaving both the training dataset and its derived model obsoleted.
 \end{itemize}
 
 
@@ -82,17 +82,18 @@ In this regard,
 \tool considers the trojan-induced intrusion detection problem as a problem of
 detecting a ``lie'' in the runtime system.
 \tool is designed as a counter-factual solution to find such inconsistency,
-which consists of two steps, i.e., 
-(1) behavioral reference construction and
-(2) runtime behavioral validation.
+which consists of 
+behavioral reference construction and
+runtime behavioral validation.
 
 \noindent\textbf{Behavioral Reference Construction.}
 Given a claimed system process, \tool constructs the behavioral reference in the form of 
-verifiable logical proposition describing either
-(1) the fact which the process has to meet (e.g., the process with name \textit{svchost.exe} must be launched by \textit{services.exe} at the location \textit{C:/windows/system32/svchost.exe}), or
+verifiable logical proposition as its behaviorial profile.
+The profile describes either
+(1) the fact which the process has to meet (e.g., the process with name \textit{svchost.exe} must be launched by \textit{\linyun{process-name.exe}} at the location \textit{C://system//service.exe}), or
 (2) the temporal relation between two events 
-(e.g., the event that \textit{svchost.exe} load \textit{msvcrt.dll} must happen before the event \textit{svchost.exe} load \textit{advapi32.dll}).
-\tool extracts composition proposition regarding both disjunction and conjunction
+(e.g., the event that \textit{svchost.exe} reads \linyun{\textit{read XX.dll}} must happen before the event \textit{svchost.exe} writes \linyun{\textit{read XX.dll}}).
+\tool extracts composition proposition regarding both disjunction and conjunction relationship
 to represent the behaviorial invariants of a system process.
 
 \noindent\textbf{Runtime Behavioral Validation.}
@@ -106,93 +107,37 @@ If yes, the violation (i.e., inconsistency) is raised as both the alarm and its 
 
 
 To construct the behaviorial reference, 
-we design a cross-validation technique to extract verifiable knowledge from LLMs (Large Language Models) such as ChatGPT.
+we design a cross-validation technique to extract verifiable knowledge from LLM (Large Language Model) such as ChatGPT.
 On one hand, 
 we adopt in-context learning solution to guide LLM to 
 introduce the runtime knowledge of a system process in a \textit{verifiable} way.
 On the other hand,
 we validate the knowledge by running the process in a sandbox.
-For the verified knowledge,
-we extract the fact and the temporal relation among the events
-as logical propositions.
+Then, we extract the fact and the temporal relation among the events from the executed system logs
+in the form as logical propositions.
 
 
-We evaluate \tool with extensive experiments by building a \hangsheng{not only caldera}Caldera-based benchmark,
+We evaluate \tool with extensive experiments by building a Caldera-based benchmark,
 simulating 10 trojan-induced APT attack scenarios including 
-4 prevalent stealth techniques \cite{xx} and
-23 malicious functionalities \cite{xx}
-In the experiment, \tool generates the behaviorial profile of 70 system processes
+4 prevalent stealth techniques \cite{xx}, 
+23 malicious functionalities \cite{xx}, and 
+4 prevalent stealth techniques \cite{xx}.
+In the experiment, \tool generates the behaviorial profile of \linyun{100} system processes
 at the cost of \$3.5 per profile.
 Our experiments show that 
-\tool is effective in reporting trojan-based APT attack comparing to the state-of-the-art solutions (with the precision of 96.25\% and the recall of 90.15\%),
+\tool is effective in reporting trojan-based APT attack comparing to the state-of-the-art solutions (with the precision of \linyun{100\%} and the recall of \linyun{??\%}),
 at the cost of minimum runtime overhead (of on average \linyun{3s}).
 Further, our wild study shows that \tool can detect \linyun{??} trojan-based attacks on \linyun{??} systems.
 
 In summary, we make the following contributions:
 \begin{itemize}[leftmargin=*]
   \item We propose an explainable intrusion detection technique \tool to report both the alarm and its explanation in a unified way. 
-      To the best of our knowledge, we are the first to detect intrusion against constructed behaviorial profile of system process.
+      To the best of our knowledge, we are the first to detect intrusion against constructed behaviorial profile of system processes.
   \item We deliver \tool which can 
     (1) construct the behaviorial invariant of a given process by enforcing LLM to output trustworthy and verifiable propositions and
     (2) validate an arbitrary system process against the constructed profile.
-  \item We deliver our \hangsheng{not only caldera}Caldera-based benchmark, which simulates 10 trojan-induced attacks. 
+  \item We deliver our Caldera-based benchmark, which simulates 10 trojan-induced attacks. 
     The benchmark is extensible for introducing more attacks.
   \item We conduct extensive experiment to evaluate \tool, showing its performance regarding high precision in both the detection results and the generated explanation.
 \end{itemize}
  
-
-
-
-%Further, we collected malware used in known APT attacks from public repositories and websites, revealing that camouflage techniques are ubiquitous in such attacks.
-%As a result, the detection rates and range of threats identified by ProCon were consistently superior to those of existing solutions. With our realistic and multifaceted attack simulations, ProCon's robust performance accentuates its transformative potential in cybersecurity, offering organizations a stronger defense against APT threats.
-
-
-%\textbf{Statistical-based} techniques \cite{liu2018towards,hassan2019nodoze,hassan2020we}, although intuitive, grapple with false positives, making it tough to differentiate genuinely anomalous behaviors from benign novelties.
-%In sum, while each technique offers nuanced advantages, a comprehensive method that addresses all four dimensions and seamlessly tackles every facet of APT detection remains an open challenge.
-
-%coupled with the extensive damage they can inflict, make them exceptionally challenging to detect and mitigate.
-%In light of this, we embarked on an exhaustive study of current commercial Endpoint Detection and Response (EDR) products \cite{karantzas2021empirical} and provenance graph-based solutions \cite{cheng2023kairos,alsaheel2021atlas,han2020unicorn,inam2022sok,han2021sigl}. Our deep dive into these systems allowed us to identify critical gaps and challenges. Specifically, we distilled the problems facing current solutions into four key dimensions:
-
-%While data provenance-based threat detection has emerged as a promising approach against the covert Advanced Persistent Threats (APTs), current methodologies exhibit specific shortcomings, failing to satisfy all four dimensions concurrently.
-%% \yd{YD: Maybe can merge the following content into above four key dimensions?}
-%
-%On the other hand, while \textbf{anomaly-based} techniques \cite{wang2022threatrace,han2020unicorn,wang2020you} are adept at spotting deviations, their outcomes often lack transparency and pose challenges for integration into commercial products. Within this realm, graph \cite{manzoor2016fast,han2020unicorn,li2021hierarchical,yang2023prographer,cheng2023kairos} and path-based methods \cite{wang2020you,alsaheel2021atlas} tend to detect only those attacks that leave discernible traces on the graph or path, yielding results that are too macroscopic. Node-based methods provide finer granularity but can sometimes oversimplify intricate attack behaviors.
-%Knowledge graph embedding techniques\cite{zeng2021watson,zengy2022shadewatcher} may have difficulty representing a single process accurately with a single vector due to the diversity of node functions and similarities between normal nodes and malicious nodes.
-
-
-
-
-
-%\begin{itemize}[leftmargin=*]
-%    \item \textbf{Insufficient information within Log Data}: Effective intrusion detection hinges on the richness and comprehensiveness of audit logs. Recent research \cite{gandhi2023rethinking} underscores a concerning deficiency: current logging systems capture insufficient information for reliable attack detection. Solely relying on these raw logs may result in a low attack detection coverage. To further enhance this capability, we aim to detect more attacks without increasing the granularity of log collection. A need exists to integrate more detailed knowledge into our system, especially in understanding the precise meanings of entities within logs, including process names, registry files and dynamic link libraries (DLLs), etc. By enriching our logs with more information and knowledge, we stand a better chance of detecting a wider range of attacks, especially the stealthy behaviors often employed in APT attacks.
-%    \item \textbf{Attack Agnosticity}:
-%    Zero-day vulnerabilities (malware or flaws not yet identified by security analysts), especially in APT attacks, require detection systems that are not bound by pre-existing signatures or indicators. Anomaly detection \cite{wang2020you, alsaheel2021atlas, han2020unicorn}, stands out as the most effective technique for identifying such zero-day exploits. Therefore, an optimal method of detecting these unknown threats would not rely on known attack patterns.
-%    \item \textbf{Evolving Threats}: Advanced Persistent Threats (APT) represent dynamic, sustained, and sophisticated threats. Professional attacker groups continuously innovate, targeting an ever-expanding array of system processes and adapting to the latest defensive measures. This evolving landscape necessitates detection methods that can swiftly identify and adapt to emerging attack paradigms.
-%    \item \textbf{Transparency}: The value of detection alerts lies in their clarity. For security personnel, a clear understanding of the 'why' and 'how' behind detection can drive quicker and more effective interventions. By providing clear explanations, system administrators will have a better understanding of the threat landscape, allowing them to respond to threats faster and in a more knowledgeable manner.
-%\end{itemize}
-
-
-
-
-%The primary impediments to addressing the current challenges in APT detection can be attributed to the inherently knowledge-intensive nature of the cybersecurity domain. When faced with audit logs that present insufficient information, there's an acute need to augment them with supplementary domain-specific knowledge. This supplemental knowledge becomes even more crucial when attacks evolve or present themselves in stealthy manners. Moreover, a well-rounded domain understanding also serves as a basis for explaining detection results, enhancing transparency for security analysts. Thus, the key to overcoming these challenges lies in the ability to swiftly and effectively harness extensive cybersecurity knowledge.
-%Fortunately, Large Language Models (LLMs) have demonstrated remarkable prowess in recent years. These models are capable of understanding human-like text intricacies and have demonstrated efficacy across a wide range of domains, especially those requiring rapid knowledge extraction. There is an important question here: \textit{Can LLMs be effectively leveraged in cybersecurity to improve detection methods for stealthy and evolving APT attacks?}
-
-%In response to this crucial question, we focus on addressing these dimensions, combining knowledge extraction prowess of LLMs with the structural expertise of provenance graphs, aiming to detect APT. To accomplish our goal, we want the LLMs to automatically identify key constraints associated with system processes. These constraints are then transformed into actionable rules that serve as vital tools for detecting attacks. It is possible to detect attacks without increasing the granularity of our log data by thoroughly extracting and understanding log entities, such as program names, dynamic link libraries (DLLs), and registers. In addition, LLMs' vast knowledge repository allows us to discover unknown and evolving threats in addition to interpreting the nature of the attacks. As a result, we cover the four dimensions previously discussed.
-
-%As we all known, the use of LLMs for contract process profiling has both advantages and challenges. It is evident that LLMs have extensive knowledge of process behavior and are able to explain their outputs. However, following detailed practice, we found that LLMs construction processes presented challenges due to  \textit{difficulty handling complex scenarios},
-%\textit{context reliance}, \textit{memory limitations}, and \textit{the possibility of generating inaccurate information or hallucinations}.
-
-%To address these challenges, we introduced ProfileGuard, a method for automated system process profile construction using LLMs.This method involves:
-
-%\begin{itemize}
-%    \item Process Behavior Tree Construction: We attempted to capture as many behaviors as possible for each process, creating a behavior tree. Using a "self-ask" approach, the LLMs continuously expanded its knowledge of this tree. This tree also played a pivotal role in providing the LLMs with contextual depth.
-%    \item Command Execution: Based on the behavior tree, the LLMs scripted and executed commands for relevant behaviors.
-%    \item Constraint Extraction: We designed a hybrid method that combines traditional programming techniques With queries to the LLMs to extract different process constraints.
-%    \item Validation: A two-tiered validation approach has been implemented to validate the model's outputs. In the first tier, we execute actual commands and verify them against real-world logs, followed by a multi-round debate among the LLMs to validate their responses and reasoning.
-%\end{itemize}
-%We will delve into the mechanics of our design in detail in Section~\ref{sec:motivation}.
-
-
-
-
-

@@ -32,11 +32,12 @@ In this section, we discuss the related work to anomaly-based detection methods.
 % Provenance graph-based methods are becoming increasingly popular in detecting stealthy APT attacks, due to their ability to identify a variety of host-based threats. There are three main detection methods based on Provenance graphs: learning-based detection, and rule-based detection.
 
 \paragraph{Learning-based Detection}
-For the learning-based detection methods, we broadly classify the existing approaches into four categories based on the granularity of anomaly detection: (1) graph-based, (2) path-based, (3) node-based, and (5) knowledge graph embedding-based.
+Such methods usually require extensive training datasets and are computationally intensive. For the learning-based detection methods, we broadly classify the existing approaches into three categories based on the granularity of anomaly detection: (1) graph-based, (2) path-based, and (3) node-based. %, and (5) knowledge graph embedding-based.
 
-The first class of detection techniques train models on benign behaviors, identifying deviations as potential cyber-attacks \yd{Add refs}. Although these methods can detect threats with impressive accuracy by integrating audit record semantics into threat analysis, existing learning solutions often fail to provide insightful and explicable results, compromising the practical utility.
+% The first class of detection techniques train models on benign behaviors, identifying deviations as potential cyber-attacks \yd{Add refs}. Although these methods can detect threats with impressive accuracy by integrating audit record semantics into threat analysis, existing learning solutions often fail to provide insightful and explicable results, compromising the practical utility.
 % 
 
+The first class of methods 
 \noindent
 {\bf Graph-based Methods.} Graph-based anomaly detection requires extensive training datasets and is computationally intensive. The researchers have embedded provenance graphs into vector space and developed tools such as StreamSpot \cite{manzoor2016fast} and Unicorn \cite{han2020unicorn} to analyze information flow graphs. Despite Unicorn's superior performance due to its thorough graph analysis, both methods face challenges in detecting stealthy threats due to graph kernel limitations. In the same way, IPG \cite{li2021hierarchical} and ProGrapher \cite{yang2023prographer} use graph-level approaches, but struggle with similar issues as StreamSpot and Unicorn. Despite the fact that many systems attempt to use data provenance for threat detection, methods that combine scope and timeliness are needed. The remarkable capabilities of KAIROS \cite{cheng2023kairos} make it an excellent competitor.
 
