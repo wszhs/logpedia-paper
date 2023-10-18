@@ -3,7 +3,7 @@
 % \paragraph{Stealthy APT Attacks}
 % Advanced Persistent Threats (APTs) are sophisticated, targeted, evolving, and steathy cyberattacks launched by specialized groups against high-risk entities, such as nuclear power plants, banks, and governments. APTs are using stealthy tactics such as name obfuscation\cite{cybereason2023,checkpoint2021,intrinsec}, process injection\cite{checkpoint2020,fsecure2019}, process hollow\cite{secureworks}, side-loading DLLs\cite{mitre_g0022,mitre_g0016}, and manipulating legitimate system utilities in order to bypass traditional security defenses due to the dynamic cyber threat landscape\cite{barr2021survivalism}. An example is Process injection, a popular technique for enabling malicious code to run within another process's address space.  Additionally, attackers use tools like \textit{rundll32.exe} to execute benign binaries and \textit{powershell.exe} to launch script-driven attacks\cite{li2019effective}. By exploiting these widely recognized and trusted tools, adversaries can discreetly penetrate and control their target systems.
 
-\paragraph{Provenance Graph-Based APT Detection}
+% \paragraph{Provenance Graph-Based APT Detection}
 % Chenyan  usenix chair
 % Threat Detection and Investigation with System-level Provenance Graphs: A Survey
 % CONAN: A Practical Real-time APT Detection System with High Accuracy and Efficiency
@@ -27,14 +27,15 @@
 
 % Adil Ahmad
 % Rethinking System Audit Architectures for High Event Coverage and Synchronous Log Availability
+In this section, we discuss the related work to anomaly-based detection methods. Given the expansive body of literature regarding this topic, we will only discuss the most prominent ones therein, i.e., provenance graph-based approaches, which encapsulate two main detection strategies: learning-based detection and rule-based detection.
 
+% Provenance graph-based methods are becoming increasingly popular in detecting stealthy APT attacks, due to their ability to identify a variety of host-based threats. There are three main detection methods based on Provenance graphs: learning-based detection, and rule-based detection.
 
+\paragraph{Learning-based Detection}
+For the learning-based detection methods, we broadly classify the existing approaches into four categories based on the granularity of anomaly detection: (1) graph-based, (2) graph-based, (3) path-based, (4) node-based, and (5) knowledge graph embedding-based.
 
-
-Provenance graph-based methods are becoming increasingly popular in detecting stealthy APT attacks, due to their ability to identify a variety of host-based threats. There are three main detection methods based on Provenance graphs: anomaly-based detection, misuse-based detection, and statistics-based detection.
-
-\paragraph{Learning-based Approaches}
-Anomaly-based detection techniques train models on benign behaviors, identifying deviations as potential cyber-attacks. Although these methods can detect threats with impressive accuracy by integrating audit record semantics into threat analysis, existing learning solutions often fail to provide insightful and explicable results, which can sometimes compromise their practical utility.
+The first class of detection techniques train models on benign behaviors, identifying deviations as potential cyber-attacks \yd{Add refs}. Although these methods can detect threats with impressive accuracy by integrating audit record semantics into threat analysis, existing learning solutions often fail to provide insightful and explicable results, compromising the practical utility.
+% 
 
 \noindent
 {\bf Graph-based Methods.} Graph-based anomaly detection requires extensive training datasets and is computationally intensive. The researchers have embedded provenance graphs into vector space and developed tools such as StreamSpot \cite{manzoor2016fast} and Unicorn \cite{han2020unicorn} to analyze information flow graphs. Despite Unicorn's superior performance due to its thorough graph analysis, both methods face challenges in detecting stealthy threats due to graph kernel limitations. In the same way, IPG \cite{li2021hierarchical} and ProGrapher \cite{yang2023prographer} use graph-level approaches, but struggle with similar issues as StreamSpot and Unicorn. Despite the fact that many systems attempt to use data provenance for threat detection, methods that combine scope and timeliness are needed. The remarkable capabilities of KAIROS \cite{cheng2023kairos} make it an excellent competitor.
@@ -49,7 +50,7 @@ Anomaly-based detection techniques train models on benign behaviors, identifying
 {\bf Knowledge Graph Embedding-based Methods.} Tools like Shadewatcher\cite{zengy2022shadewatcher} and Watson\cite{zeng2021watson} both use knowledge graph embedding to represent the semantics of individual nodes and edges. This is a promising approach. The tactics used by attackers can, however, be varied and complex. An attacker who creates a malicious node that closely mimics a genuine node makes it difficult to identify it. Process hollowing attacks, for instance, use semantic information nearly identical to that of the functionality used to fill the hollowed node, making detection difficult. As well, it may be difficult to accurately represent a single process with a single vector because a single process may encompass multiple functionalities.
 
 
-\paragraph{Statistics-based Approaches.} Recent research suggests that security incidents in attack campaigns typically manifest as uncommon system activities \cite{liu2018towards,hassan2019nodoze,hassan2020we}. According to these studies, audit records are analyzed based on their historical frequency. Although this approach is straightforward and effective, it often leads to false positives. It is possible for an alert to be triggered by an activity simply because it hasn't been observed before,  even if it is a benign update to the process status. Its primary limitation is its inability to distinguish between genuinely unusual records and new but semantically normal activities.
+% \paragraph{Statistics-based Approaches.} Recent research suggests that security incidents in attack campaigns typically manifest as uncommon system activities \cite{liu2018towards,hassan2019nodoze,hassan2020we}. According to these studies, audit records are analyzed based on their historical frequency. Although this approach is straightforward and effective, it often leads to false positives. It is possible for an alert to be triggered by an activity simply because it hasn't been observed before,  even if it is a benign update to the process status. Its primary limitation is its inability to distinguish between genuinely unusual records and new but semantically normal activities.
 
 \paragraph{Rules-based Approaches}
 A misuse-based detector detects cyber threats by comparing audit records with an attack semantics knowledge base.

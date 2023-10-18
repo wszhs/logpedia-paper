@@ -101,11 +101,11 @@ We highlight the two most common processes: \textit{svchost.exe} and \textit{run
         \cline{2-4}
         & BlackEnergy\cite{fsecure2019} & \textit{svchost.exe} & The driver component injects the main DLL component into \textit{svchost.exe} \\
         \cline{2-4}
-        & Sykipot\cite{att2023} & \textit{outlook/iexplore.exe} & The original malware scans the list of running processes looking for outlook \\
+        & Sykipot\cite{att2023} & \textit{outlook/iexplore.exe} & The malware scans running processes for outlook or iexplore and injects a DLL \\
         \hline
-        \multirow{2}{*}{Process Hollowing} & RCSession\cite{secureworks} & \textit{svchost.exe} & RCSsession is extracted from a file called \textit{English.rtf} and is loaded into \textit{svchost.exe} \\
+        \multirow{2}{*}{Process Hollowing} & RCSession\cite{secureworks} & \textit{svchost.exe} & RCSession was launched from \textit{English.rtf} via a hollowed \textit{svchost.exe} \\
         \hline
-        \multirow{2}{*}{Dll side-Loading} & APT3\cite{mitre_g0022} & \textit{Chrome.exe} & side load DLLs with a valid version of Chrome with one of their tools \\
+        \multirow{2}{*}{Dll side-Loading} & APT3\cite{mitre_g0022} & \textit{Chrome.exe} & Attackers side load DLLs with a valid version of Chrome with their tools \\
         \cline{2-4}
         & APT29\cite{mitre_g0016} & \textit{Msoev.exe} & Attackers use a HTA file to drop three executables into the \%TEMP\% directory \\
         \hline
